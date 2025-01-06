@@ -1,0 +1,169 @@
+/* estilos para o header */
+/* Header */
+.header {
+  padding: 15px;
+  position: fixed;
+  background-color: white;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Imagem de Perfil */
+.profile-picture {
+  border: 1px solid blue;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+}
+
+/* Logo */
+.logo {
+  font-size: 15px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Ícone do Carrinho */
+.cart-icon {
+  width: 35px;
+  height: 35px;
+}
+
+/* Barra de Busca */
+.search-bar {
+  width: 100%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  border: none;
+  padding: 12px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+/* estilos da nav */
+
+.links {
+  display: flex;
+  gap: 15px;
+  padding: 12px;
+}
+
+.links a {
+  text-decoration: none;
+  color: black;
+}
+
+/* estilo para o conteudo */
+
+main {
+  margin-top: 180px;
+}
+
+.slide {
+  margin-bottom: 25px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 5px;
+  gap: 10px;
+}
+
+/* estilo do produto */
+.product {
+  width: 170px;
+
+  overflow: hidden;
+
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.info {
+  padding: 10px;
+}
+.product-btn {
+  background-color: #007782;
+  padding: 5px 13px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+
+  font-weight: bold;
+}
+
+/* estilos de rodape */
+
+footer {
+  margin-top: 150px;
+  text-align: center;
+  background-color: #111827;
+  color: white;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  white-space: nowrap;
+}
+
+footer a {
+  color: white;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: green;
+}
+
+footer div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+footer p {
+  font-size: 13px;
+}
+ul img {
+  width: 100%;
+}
+
+li {
+  width: 150px;
+
+  height: 200px;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+
+  box-shadow: 15px 1px 5px rgba(0, 0, 0, 0.479);
+}
+
+#parte-inferior {
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  align-items: flex-start;
+  padding: 9px;
+}
