@@ -9,7 +9,7 @@ export default  function Header() {
           <a href="index.html">Casa Catarina Dembi</a>
         </h1>
         <div className="cart-icon">
-         <a href="cart.html">
+         <a href="carinho-de-compras">
           <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
