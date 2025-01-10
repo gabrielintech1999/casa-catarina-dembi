@@ -1,9 +1,12 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import Home from "./pages/home";
 import { Cart } from "./pages/cart";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProductDetail from "./pages/productdetail";
+
+
 
 function NotFound() {
   return (
@@ -22,8 +25,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/clientes" element={<h1>clientes</h1>} />
         <Route path="/carinho-de-compras" element={<Cart />} />
+        <Route path="/:name" element={<ProductDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
