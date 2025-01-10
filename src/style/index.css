@@ -75,7 +75,7 @@
 main {
   margin-top: 180px;
   height: 100vh;
- overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 .slide {
@@ -83,11 +83,15 @@ main {
 }
 
 .content {
-  display: flex;
+  display: -webkit-box; /* Suporte ao Safari mais antigo */
+  display: -ms-flexbox; /* Suporte ao IE (opcional) */
+  display: flex; /* Navegadores modernos */
+  -webkit-flex-wrap: wrap; /* Prefixo para flex-wrap */
   flex-wrap: wrap;
+  -webkit-justify-content: center; /* Prefixo para justify-content */
   justify-content: center;
   padding: 5px;
-  gap: 10px;
+  gap: 10px; /* O gap no Safari só é suportado a partir da versão 14. */
 }
 
 /* estilo do produto */
@@ -104,7 +108,6 @@ main {
   padding: 10px;
 }
 
-
 .product-btn {
   background-color: #007782;
   padding: 5px 13px;
@@ -119,7 +122,6 @@ main {
 /* estilos de rodape */
 
 footer {
-
   text-align: center;
   background-color: #111827;
   color: white;
