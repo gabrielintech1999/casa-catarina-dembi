@@ -74,6 +74,8 @@
 
 main {
   margin-top: 180px;
+  height: 100vh;
+ overflow-y: scroll;
 }
 
 .slide {
@@ -101,6 +103,8 @@ main {
 .info {
   padding: 10px;
 }
+
+
 .product-btn {
   background-color: #007782;
   padding: 5px 13px;
@@ -115,7 +119,7 @@ main {
 /* estilos de rodape */
 
 footer {
-  margin-top: 150px;
+
   text-align: center;
   background-color: #111827;
   color: white;
