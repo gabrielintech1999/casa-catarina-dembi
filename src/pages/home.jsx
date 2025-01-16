@@ -2,6 +2,9 @@
 import {Link} from "react-router-dom"
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
+import { db } from '../firebase/firebase';
+import { collection, getDocs } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -36,6 +39,26 @@ function Carroussel() {
 }
 
 export default function Home() {
+  const [products, setProducts] = useState([])
+
+
+
+  useEffect(()=>{
+
+  async  function fetchProducts() {
+    const querySnapshot = await getDocs(collection(db, "products")); // Substitua "products" pelo nome da sua coleção
+    const productsList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    setProducts(productsList);
+    }
+
+    fetchProducts()
+
+
+
+  }, [])
   return (
     <main>
       {/* Carrossel */}
@@ -43,29 +66,24 @@ export default function Home() {
 
       {/* Produtos */}
       <div className="content">
-        {Array(10)
-          .fill(0)
-          .map((_, index) => (
-            <article className="product" key={index}>
-              <Link to={`${index + 1}`}>
+      {products.map((product) => (
+          <article className="product" key={product.id}>
+            <a href="/pages/productdetail.html">
+              <div>
+                <img src={product.image} alt={product.name} />
+              </div>
+              <div className="info">
+                <div>{product.name}</div>
                 <div>
-                  <img
-                    src="https://m.media-amazon.com/images/I/413K0MlBc7L._SX300_SY300_QL70_FMwebp_.jpg"
-                    alt="Produto"
-                  />
+                  Kz <strong>{product.price}</strong>
                 </div>
-                <div className="info">
-                  <div>Perfume Matte</div>
-                  <div>
-                    Kz <strong>15,000</strong>
-                  </div>
-                  <div>
-                    <button className="product-btn">Comprar</button>
-                  </div>
+                <div>
+                  <button className="product-btn">Comprar</button>
                 </div>
-              </Link>
-            </article>
-          ))}
+              </div>
+            </a>
+          </article>
+        ))}
       </div>
     </main>
   );
