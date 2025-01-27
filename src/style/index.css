@@ -1,5 +1,10 @@
 /* estilos para o header */
 /* Header */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 .header {
   padding: 15px;
   position: fixed;

@@ -5,7 +5,7 @@ export default  function Header() {
       <header className="header">
       <div className="header-container">
         <div className="profile-picture">
-          <img className="profile-image" alt="Foto do perfil do cliente" />
+          <Link to="/perfil"><img className="profile-image" alt="Foto do perfil do cliente" /></Link>
         </div>
         <h1 className="logo">
           <a href="index.html">Casa Catarina Dembi</a>

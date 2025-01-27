@@ -1,0 +1,109 @@
+{
+    "products": [
+        {
+            "category": "Matérias de Costura",
+            "description": "Um alfinete de prata é um pequeno objeto de metal prateado, com uma ponta afiada para prender tecidos e uma cabeça arredondada ou decorativa na outra extremidade.",
+            "id": "6PKVIKr8TifMmwxAjPAc",
+            "image": "https://sacaria.vteximg.com.br/arquivos/ids/155447-1000-1000/Alfinete-Prata-N%C2%AA-01---Trader.jpg?v=637172801988600000",
+            "name": "Alfinete de prata",
+            "price": 200
+        },
+        {
+            "brand": "Singer",
+            "category": "Matérias de Costura",
+            "description": "Agulha de Costura para Máquina: Agulha de aço resistente, ideal para costuras em tecidos leves e médios. Possui ponta precisa e design compatível com máquinas domésticas e industriais.",
+            "id": "71ck7XJuoJo5Wyvk6flG",
+            "image": "https://cdn.awsli.com.br/800x800/1812/1812949/produto/187389323ef0fa2da8f.jpg",
+            "name": "Agulha de costura",
+            "price": 100
+        },
+        {
+            "brand": "Brown",
+            "category": "cosmeticos",
+            "description": "Delicie-se com o fascínio cativante do Perfume Brown Orchid EDP da House of Fragrance World Dubai. Esta fragrância requintada combina especiarias quentes, madeiras preciosas e acordes florais doces para criar um aroma luxuoso e elegante que deixa uma impressão duradoura",
+            "id": "EY1jVZwvn1fgBCAeFelM",
+            "image": "https://i.pinimg.com/736x/3d/5d/b6/3d5db6abf5eaa4ad6cdaa11b0d162e7a.jpg",
+            "name": "Perfume Brown",
+            "price": 14000
+        },
+        {
+            "category": "Material escolar",
+            "description": "O caderno apresenta uma capa colorida e vibrante com ilustrações, provavelmente em tamanho A5 ou A4. É ideal para uso escolar ou pessoal, com acabamento que parece ser espiral ou colado, oferecendo resistência e praticidade. As folhas internas podem ser pautadas ou quadriculadas, adequadas para escrita ou anotações gerais",
+            "id": "Fiiyr4nfVHCEcWzorrsU",
+            "image": "https://sc02.alicdn.com/kf/HTB1uzUdb6gy_uJjSZPxq6ynNpXaQ/20870/HTB1uzUdb6gy_uJjSZPxq6ynNpXaQ.jpg",
+            "name": "Caderno escolar",
+            "price": 500
+        },
+        {
+            "brand": "Colgate",
+            "category": "Higiene",
+            "description": "A Pasta de Dente Colgate Total 12 é desenvolvida com uma fórmula avançada que ajuda a proteger os dentes e a gengiva contra problemas bucais por até 12 horas.",
+            "id": "My3VrZgAGwVt7s9vqqSi",
+            "image": "https://drogariavenancio.vteximg.com.br/arquivos/ids/744531-600-600/73295_Z.jpg?v=637339341407470000",
+            "name": "Pasta de dente Colgate",
+            "price": 1000
+        },
+        {
+            "brand": "Vinnic",
+            "category": "Eletronicos",
+            "description": "Pacote com 2 pilhas modelo SUM3 (AA) da marca Vinnic, apresentadas em uma embalagem transparente, ideal para dispositivos que exigem energia extra pesada (Extra Heavy Duty).",
+            "id": "NUFt3kYJ4WhUqsNDHBCY",
+            "image": "https://s.yimg.com/ob/image/3300f01d-d055-4fd0-a18f-fb92893a884a.jpg",
+            "name": "Pilha Vinnic",
+            "price": 400
+        },
+        {
+            "brand": "Lanmax",
+            "category": "Matérias de Costura",
+            "description": "Auxilia na Costura e no Patchwork com marcações. Podem ser utilizados em tecidos leves, médios ou pesados. Marca: Lanmax Valor referente a um disco com 40 alfinetes de 38mm",
+            "id": "RIY7WhVpZBmN65GTWaqj",
+            "image": "https://42515.cdn.simplo7.net/static/42515/sku/armarinho-acessorios-para-costura-disco-alfinete-colorido-38mm-c-40unid-p-1682608894162.png",
+            "name": "Disco Alfinete Colorido 38mm c/ 40unid",
+            "price": 600
+        },
+        {
+            "brand": "Navigator",
+            "category": "Material de Escritório",
+            "description": "A folha de resma A4 Navigator é amplamente reconhecida por sua qualidade premium e desempenho superior em impressões",
+            "id": "U6TdfJaYjeOQmQoqUFeY",
+            "image": "https://forprint.pt/image/cache/data/5602024006102-1000x1000.jpg",
+            "name": "Resma de Papel A4 Navigator",
+            "price": 6000
+        },
+        {
+            "brand": "Double A",
+            "category": "Material de Escritório",
+            "description": "O papel Double A é um papel sulfite de alta qualidade, ideal para impressão e escrita. Com gramatura de 80g/m², tamanho A4 e brancura elevada, garante impressões nítidas e sem atolamentos. É compatível com impressoras laser, jato de tinta e fotocopiadoras, sendo produzido de forma sustentável.",
+            "id": "YOTtXxz8zsXg8LSmwTG1",
+            "image": "https://p.globalsources.com/IMAGES/PDT/B5833555216/Papel-de-copia-A4.jpg",
+            "name": "Resma de Papel A4 Double A",
+            "price": 4000
+        },
+        {
+            "category": "cosmetico",
+            "description": "A Loção Corporal Feel nutre e hidrata profundamente a pele normal e seca. Enriquecida com 98% de Ingredientes Naturais, oferece um cuidado completo 5 em 1: hidratação profunda ao longo de 48h, sensação de pele suave, proteção contra a desidratação, nutrição profunda e pele com aspeto saudável",
+            "id": "gP5IP2iGFBwP1hMZQ0aI",
+            "image": "https://cdn.bazara.co.mz/media/catalog/product/cache/ea05800347c6b7bb78c005a60e973105/a/m/amzn-6182000132906.jpg",
+            "name": "Creme Hidratante Feel",
+            "price": 2100
+        },
+        {
+            "brand": "Bravo",
+            "category": "Material escolar",
+            "description": "A Caixa de Lapiseiras Bravo contém 50 unidades de lapiseiras de alta qualidade, disponíveis em diversas cores, incluindo azul, preto e vermelho. Essas lapiseiras são ideais para uso escolar e profissional, oferecendo escrita suave e precisa",
+            "id": "jJ93tR4dXgrzBMBgYVZo",
+            "image": "https://www.angoshop.ao/images/detailed/14/unnamed021-35.jpeg",
+            "name": "Caixa de Lapireisa Bravo",
+            "price": 3000
+        },
+        {
+            "brand": "Círculo",
+            "category": "Matérias de Costura",
+            "description": "Linha de costura de alta qualidade, 100% poliéster, ideal para costura em alta velocidade, com 1371 metros e resistência superior.",
+            "id": "svqPf6ICQsISSUaG0XF5",
+            "image": "https://dcdn.mitiendanube.com/stores/002/880/671/products/linha-costura-circulo-1500j-cor-organza1041-c6734cdbc68146648116793665633104-1024-1024.webp",
+            "name": "Linha de costura círculo",
+            "price": 500
+        }
+    ]
+}

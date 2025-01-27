@@ -1,14 +1,14 @@
 // Import Swiper React components
-import {Link} from "react-router-dom"
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay } from 'swiper/modules';
-import { db } from '../firebase/firebase';
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay } from "swiper/modules";
+import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
+import "swiper/css";
+import "swiper/css/navigation";
 
 function Carroussel() {
   return (
@@ -39,36 +39,86 @@ function Carroussel() {
 }
 
 export default function Home() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
+  function filterProducts(category) {
+    if (!category) {
+      // Se a categoria estiver vazia, mostrar todos os produtos
+      setFilteredProducts(products);
+    } else {
+      // Filtrar os produtos pela categoria
+      const filtered = products.filter((product) => product.category === category);
+      setFilteredProducts(filtered);
+    }
+  }
+  useEffect(() => {
+    async function fetchProducts() {
+      const querySnapshot = await getDocs(collection(db, "products")); // Substitua "products" pelo nome da sua coleção
+      const productsList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-
-  useEffect(()=>{
-
-  async  function fetchProducts() {
-    const querySnapshot = await getDocs(collection(db, "products")); // Substitua "products" pelo nome da sua coleção
-    const productsList = querySnapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data(),
-    }));
-    setProducts(productsList);
+      console.log(productsList);
+      setProducts(productsList);
+      setFilteredProducts(productsList);
     }
 
-    fetchProducts()
-
-
-
-  }, [])
+    fetchProducts();
+  }, []);
   return (
     <main>
       {/* Carrossel */}
       <Carroussel />
 
+      <div className="overflow-x-auto">
+  <div className="flex flex-row gap-4 w-max">
+    <button
+      onClick={() => filterProducts("cosmeticos")}
+      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+    >
+      Cosmeticos
+    </button>
+    <button
+      onClick={() => filterProducts("Material escolar")}
+      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+    >
+      Material Escolar
+    </button>
+    <button
+      onClick={() => filterProducts("Matérias de Costura")}
+      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+    >
+      Materiais de Costura
+    </button>
+    <button
+      onClick={() => filterProducts("Material de Escritório")}
+      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+    >
+      Material de Escritório
+    </button>
+    <button
+      onClick={() => filterProducts("Higiene")}
+      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
+    >
+      Higiene
+    </button>
+    <button
+      onClick={() => filterProducts("")} // Exibir todos os produtos
+      className="bg-gray-500 text-white px-2 py-1 rounded-lg"
+    >
+      Mostrar Todos
+    </button>
+  </div>
+</div>
+
+
       {/* Produtos */}
       <div className="content">
-      {products.map((product) => (
+        {filteredProducts.map((product) => (
           <article className="product" key={product.id}>
-            <a href="/pages/productdetail.html">
+            <Link to={`/produtos/${product.id}/${product.name}`}>
               <div>
                 <img src={product.image} alt={product.name} />
               </div>
@@ -81,7 +131,7 @@ export default function Home() {
                   <button className="product-btn">Comprar</button>
                 </div>
               </div>
-            </a>
+            </Link>
           </article>
         ))}
       </div>
