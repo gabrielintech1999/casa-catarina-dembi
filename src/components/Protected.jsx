@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 export default function Protected() {
 
 
-  const user = false
+  const user = {}
 
   if (!user) {
     console.log("OK");
