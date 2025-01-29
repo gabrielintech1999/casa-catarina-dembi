@@ -1,14 +1,29 @@
-// Import Swiper React components
-import { Link } from "react-router-dom";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
-import React, { useState, useEffect } from "react";
+
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import { useSearch } from "../context/SearchContext";
+import { AcademicCapIcon, BeakerIcon, BriefcaseIcon, CubeTransparentIcon, DevicePhoneMobileIcon, ScissorsIcon, SparklesIcon } from "@heroicons/react/24/outline";
+
+export async function loader() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    const productsList = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return productsList;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw new Response("Failed to fetch products", { status: 500 });
+  }
+}
 
 function Carroussel() {
   return (
@@ -23,12 +38,12 @@ function Carroussel() {
         disableOnInteraction: false, // Continua mesmo após interação do usuário
       }}
     >
-      {/* Renderizar slides dinamicamente */}
       {Array(10)
         .fill(0)
         .map((_, index) => (
           <SwiperSlide key={index}>
             <img
+              className="w-full h-64 object-cover"
               src="https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI="
               alt={`banner-home-${index}`}
             />
@@ -39,102 +54,111 @@ function Carroussel() {
 }
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const products = useLoaderData();
+  const { searchTerm } = useSearch();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryFilter = searchParams.get("categoria");
 
-  function filterProducts(category) {
-    if (!category) {
-      // Se a categoria estiver vazia, mostrar todos os produtos
-      setFilteredProducts(products);
-    } else {
-      // Filtrar os produtos pela categoria
-      const filtered = products.filter((product) => product.category === category);
-      setFilteredProducts(filtered);
-    }
-  }
-  useEffect(() => {
-    async function fetchProducts() {
-      const querySnapshot = await getDocs(collection(db, "products")); // Substitua "products" pelo nome da sua coleção
-      const productsList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+  const categories = [
+    { name: "Cosméticos", icon: SparklesIcon, value: "cosmeticos" },
+    {
+      name: "Material Escolar",
+      icon: AcademicCapIcon,
+      value: "Material escolar",
+    },
+    {
+      name: "Materiais de Costura",
+      icon: ScissorsIcon,
+      value: "Matérias de Costura",
+    },
+    {
+      name: "Material de Escritório",
+      icon: BriefcaseIcon,
+      value: "Material escolar",
+    },
+    { name: "Higiene", icon: BeakerIcon, value: "Higiene" },
+    { name: "Eletrônicos", icon: DevicePhoneMobileIcon, value: "Eletronicos" },
+  ];
 
-      console.log(productsList);
-      setProducts(productsList);
-      setFilteredProducts(productsList);
-    }
+  const filteredProducts = products.filter((product) => {
+    const matchesCategory = categoryFilter
+      ? product.category === categoryFilter
+      : true;
+    const matchesSearch = searchTerm
+      ? product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      : true;
+    return matchesCategory && matchesSearch;
+  });
 
-    fetchProducts();
-  }, []);
   return (
-    <main>
-      {/* Carrossel */}
+    <>
       <Carroussel />
 
-      <div className="overflow-x-auto">
-  <div className="flex flex-row gap-4 w-max">
-    <button
-      onClick={() => filterProducts("cosmeticos")}
-      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
-    >
-      Cosmeticos
-    </button>
-    <button
-      onClick={() => filterProducts("Material escolar")}
-      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
-    >
-      Material Escolar
-    </button>
-    <button
-      onClick={() => filterProducts("Matérias de Costura")}
-      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
-    >
-      Materiais de Costura
-    </button>
-    <button
-      onClick={() => filterProducts("Material de Escritório")}
-      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
-    >
-      Material de Escritório
-    </button>
-    <button
-      onClick={() => filterProducts("Higiene")}
-      className="bg-blue-500 text-white px-2 py-1 rounded-lg"
-    >
-      Higiene
-    </button>
-    <button
-      onClick={() => filterProducts("")} // Exibir todos os produtos
-      className="bg-gray-500 text-white px-2 py-1 rounded-lg"
-    >
-      Mostrar Todos
-    </button>
-  </div>
-</div>
+      {/* Filtros */}
+      <div className="categories-container my-4">
+        <div className="flex gap-4 overflow-x-auto whitespace-nowrap px-4">
+          {categories.map(({ name, icon: Icon, value }) => (
+            <button
+              key={value}
+              onClick={() => setSearchParams({ categoria: value })}
+              className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
+            >
+              <Icon className="w-5 h-5 text-gray-500" />
+              {name}
+            </button>
+          ))}
+          <button
+            onClick={() => setSearchParams({})}
+            className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
+          >
+            <CubeTransparentIcon className="w-5 h-5 text-gray-500" />
+            Mostrar Todos
+          </button>
+        </div>
+      </div>
 
-
-      {/* Produtos */}
-      <div className="content">
+      {/* Produtos filtrados */}
+      <div className="products-container grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-2">
         {filteredProducts.map((product) => (
-          <article className="product" key={product.id}>
-            <Link to={`/produtos/${product.id}/${product.name}`}>
-              <div>
-                <img src={product.image} alt={product.name} />
-              </div>
-              <div className="info">
-                <div>{product.name}</div>
-                <div>
-                  Kz <strong>{product.price}</strong>
-                </div>
-                <div>
-                  <button className="product-btn">Comprar</button>
-                </div>
-              </div>
-            </Link>
-          </article>
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            image={product.image}
+            price={product.price}
+          />
         ))}
       </div>
-    </main>
+    </>
+  );
+}
+
+function ProductCard({ id, name, image, price }) {
+  return (
+    <article
+      className="product border rounded-lg p-4 flex flex-col items-center"
+      key={id}
+    >
+      <Link to={`/produtos/${id}/${name}`}>
+        <div className="w-full h-40 mb-4">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
+        <div className="info text-center">
+          <div className="font-bold mb-2">{name}</div>
+          <div className="text-lg text-green-600 mb-2">
+            Kz <strong>{price}</strong>
+          </div>
+          <div>
+            <button className="product-btn bg-blue-500 text-white px-4 py-2 rounded-lg">
+              Comprar
+            </button>
+          </div>
+        </div>
+      </Link>
+    </article>
   );
 }

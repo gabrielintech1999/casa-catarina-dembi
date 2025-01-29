@@ -1,11 +1,13 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './style/reset.css'
-import './style/index.css'
-import App from './App.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./style/index.css";
+import App from "./App.jsx";
+import { SearchProvider } from "./context/SearchContext.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <SearchProvider>
+      <App />
+    </SearchProvider>
+  </StrictMode>
+);

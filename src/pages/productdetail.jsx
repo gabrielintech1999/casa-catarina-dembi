@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../style/productdetail.css";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 

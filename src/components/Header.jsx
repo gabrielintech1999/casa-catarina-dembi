@@ -1,47 +1,86 @@
-import { Link } from "react-router-dom";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import { useSearch } from "../context/SearchContext";
 
-export default  function Header() {
-    return(
-      <header className="header">
-      <div className="header-container">
-        <div className="profile-picture">
-          <Link to="/perfil"><img className="profile-image" alt="Foto do perfil do cliente" /></Link>
+export default function Header() {
+  const { searchTerm, setSearchTerm } = useSearch();
+
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+
+  console.log(searchTerm);
+  
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+
+    // Atualiza a URL com o parâmetro de pesquisa
+    setSearchParams(value ? { pesquisa: value } : {});
+  };
+
+  return (
+    <header className="sticky top-0 z-50 flex flex-col p-4 bg-white shadow-md">
+      {/* Top Section */}
+      <div className="flex justify-between items-center mb-4">
+        {/* Profile Section */}
+        <div className="border border-gray-300 rounded-full w-12 h-12 overflow-hidden">
+          <Link to="/perfil">
+            {false ? (
+              <img src="user.photoURL" alt="Perfil" className="w-12 h-12" />
+            ) : (
+              <UserCircleIcon className="w-12 h-12" />
+            )}
+          </Link>
         </div>
-        <h1 className="logo">
-          <a href="index.html">Casa Catarina Dembi</a>
+
+        {/* Logo */}
+        <h1 className="text-2xl font-bold text-green-600">
+          <Link to="/">Casa Catarina Dembi</Link>
         </h1>
-        <div className="cart-icon">
-         <Link to="carinho-de-compras">
-          <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-          />
-        </svg>
-         </Link>
+
+        {/* Shopping Cart */}
+        <div>
+          <Link to="carinho-de-compras">
+            <ShoppingBagIcon className="h-8 w-8 text-green-600 hover:text-green-800 transition duration-200" />
+          </Link>
         </div>
       </div>
-      <input
-        className="search-bar"
-        type="search"
-        placeholder="Buscar produtos..."
-      />
-      <nav>
-       <div className="links">
-          <Link to="/">Produtos</Link>
-          <a href="checkout.html">Facturação</a>
-          <a href="about.html">Sobre Nós</a>
-       </div>
-      </nav>
-    </header> 
-    )
 
-  
+      {/* Search Bar */}
+      <div className="mb-4">
+        <input
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-600 focus:outline-none"
+          id="search"
+          type="search"
+          placeholder="Pesquisar produtos..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
+      </div>
+
+      {/* Navigation Menu */}
+      <nav>
+        <div className="flex gap-5 text-lg font-medium text-gray-600">
+          <Link to="/" className="hover:text-green-600 transition duration-200">
+            Produtos
+          </Link>
+          <Link
+            to="checkout"
+            className="hover:text-green-600 transition duration-200"
+          >
+            Facturação
+          </Link>
+          <Link
+            to="about"
+            className="hover:text-green-600 transition duration-200"
+          >
+            Sobre Nós
+          </Link>
+        </div>
+      </nav>
+    </header>
+  );
 }
