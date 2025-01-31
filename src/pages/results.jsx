@@ -7,7 +7,7 @@ export default function Results() {
   const navigate = useNavigate(); // Para navegação no React Router
 
   // Sugestões simuladas (pode substituir por dados reais)
-  const suggestions = ["Alfinete de Prata", "Agulha de Costura", "Tesoura", "Linha de Algodão"]
+  const suggestions = ["Alfinete de prata", "Agulha de Costura", "Perfume Brown", "Caderno Escolar", "Pasta de Dente Colgate", "Pilha Vinnic", "Disco Alfinete Colorido 38mm"]
     .filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
