@@ -152,11 +152,6 @@ function ProductCard({ id, name, image, price }) {
           <div className="text-lg text-green-600 mb-2">
             Kz <strong>{price}</strong>
           </div>
-          <div>
-            <button className="product-btn bg-blue-500 text-white px-4 py-2 rounded-lg">
-              Comprar
-            </button>
-          </div>
         </div>
       </Link>
     </article>

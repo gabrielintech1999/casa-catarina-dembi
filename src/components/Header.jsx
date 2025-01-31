@@ -7,12 +7,10 @@ import { useSearch } from "../context/SearchContext";
 export default function Header() {
   const { searchTerm, setSearchTerm } = useSearch();
 
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-
   console.log(searchTerm);
-  
+
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -51,14 +49,16 @@ export default function Header() {
 
       {/* Search Bar */}
       <div className="mb-4">
-        <input
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-600 focus:outline-none"
-          id="search"
-          type="search"
-          placeholder="Pesquisar produtos..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+        <Link to={"/resultados"}>
+          <input
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-green-600 focus:outline-none"
+            id="search"
+            type="search"
+            placeholder="buscar produtos..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+        </Link>
       </div>
 
       {/* Navigation Menu */}
