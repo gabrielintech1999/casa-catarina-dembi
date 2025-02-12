@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const ProductDetail = () => {
@@ -47,7 +47,6 @@ const ProductDetail = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold">{product.name}</h1>
-
       {/* Imagem principal com clique para tela cheia */}
       <div className="relative">
         <img
@@ -57,7 +56,6 @@ const ProductDetail = () => {
           onClick={() => setIsFullScreen(true)}
         />
       </div>
-
       {/* Miniaturas das imagens */}
       <div className="flex gap-2 mt-2 overflow-x-auto">
         {product.images.map((img, index) => (
@@ -72,11 +70,11 @@ const ProductDetail = () => {
           />
         ))}
       </div>
-
       <p className="text-lg text-gray-700">{product.description}</p>
       <p className="text-xl font-semibold text-green-600">Kz {product.price}</p>
-      <p className="text-sm text-gray-500">Estoque disponível: {product.stock}</p>
-
+      <p className="text-sm text-gray-500">
+        Estoque disponível: {product.stock}
+      </p>
       {/* Seletor de quantidade */}
       <div className="mt-2">
         <label className="block text-sm">Quantidade:</label>
@@ -88,11 +86,14 @@ const ProductDetail = () => {
           className="border p-1 w-16"
         />
       </div>
-
       <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         Adicionar ao Carrinho
-      </button>
+      </button>{" "}
+      <br />
 
+      <Link  to="/facturaçao?name=Silken%20Natural%20Hair%20Soft%20&%20Rich%20Condicionador&price=15000&id=0REjMYouYgFi2rCMUtSq" className="inline-block  px-4 py-2 bg-red-500 text-white rounded mt-4">
+        Comprar Agora
+      </Link>
       {/* Avaliações dos usuários */}
       <div className="mt-6">
         <h2 className="text-lg font-semibold">Avaliações:</h2>
@@ -100,14 +101,12 @@ const ProductDetail = () => {
           <div key={index} className="border p-2 mt-2">
             <p className="text-sm font-bold">{review.user}</p>
             <p className="text-sm text-yellow-500">
-              {"★".repeat(review.rating)}{" "}
-              {"☆".repeat(5 - review.rating)}
+              {"★".repeat(review.rating)} {"☆".repeat(5 - review.rating)}
             </p>
             <p className="text-sm">{review.comment}</p>
           </div>
         ))}
       </div>
-
       {/* Modal de imagem em tela cheia */}
       {isFullScreen && (
         <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50">

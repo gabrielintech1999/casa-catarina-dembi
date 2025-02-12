@@ -18,6 +18,7 @@ import Profile from "./pages/profile";
 import Auth from "./pages/auth";
 import RootLayout from "./RootLayout";
 import Results from "./pages/results";
+import CheckOut from "./pages/checkout";
 
 function NotFound() {
   return (
@@ -36,13 +37,18 @@ const router = createBrowserRouter(
         <Route index element={<Home />} loader={homeLoader} />
 
         <Route path="/carinho-de-compras" element={<Cart />} />
+    
         <Route path="/perfil" element={<Profile />} />
 
         <Route path="/auth" element={<Auth />} />
 
         <Route path="/produtos/:id/:name" element={<ProductDetail />} />
       </Route>
+
+
+      
       <Route  path="/resultados" element={<Results  />} />
+      <Route path="/facturaçao" element={<CheckOut />} />
     </Route>
   )
 );
