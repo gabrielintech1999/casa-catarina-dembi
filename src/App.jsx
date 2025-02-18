@@ -13,12 +13,12 @@ import {
   SpeakerWaveIcon,
 } from "@heroicons/react/24/outline";
 
-import ProductDetail from "./pages/productdetail";
+import ProductDetail, { loader as detailLoader } from "./pages/productdetail";
 import Profile from "./pages/profile";
 import Auth from "./pages/auth";
 import RootLayout from "./RootLayout";
 import Results from "./pages/results";
-import CheckOut from "./pages/checkout";
+import CheckOut, { action as checkoutAction } from "./pages/checkout";
 
 function NotFound() {
   return (
@@ -42,13 +42,13 @@ const router = createBrowserRouter(
 
         <Route path="/auth" element={<Auth />} />
 
-        <Route path="/produtos/:id/:name" element={<ProductDetail />} />
+        <Route path="/produtos/:id/:name" element={<ProductDetail />} loader={detailLoader} />
       </Route>
 
 
       
       <Route  path="/resultados" element={<Results  />} />
-      <Route path="/facturaçao" element={<CheckOut />} />
+      <Route path="/facturaçao" element={<CheckOut />} action={checkoutAction} />
     </Route>
   )
 );

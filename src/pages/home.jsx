@@ -5,6 +5,15 @@ import { db } from "../firebase/firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 
+const slideImages = [
+  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+
+]
+
+
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -97,9 +106,9 @@ export default function Home() {
       {/* Filtros */}
       <div className="categories-container my-4">
         <div className="flex gap-4 overflow-x-auto whitespace-nowrap px-4">
-          {categories.map(({ name, icon: Icon, value }) => (
+          {categories.map(({ name, icon: Icon, value }, index) => (
             <button
-              key={value}
+              key={index}
               onClick={() => setSearchParams({ categoria: value })}
               className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
             >
@@ -157,3 +166,203 @@ function ProductCard({ id, name, image, price }) {
     </article>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, Autoplay } from "swiper/modules";
+// import { db } from "../firebase/firebase";
+// import { collection, getDocs } from "firebase/firestore";
+
+
+
+
+
+// Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import { useSearch } from "../context/SearchContext";
+// import { AcademicCapIcon, BeakerIcon, BriefcaseIcon, CubeTransparentIcon, DevicePhoneMobileIcon, ScissorsIcon, SparklesIcon } from "@heroicons/react/24/outline";
+
+// export async function loader() {
+//   try {
+//     const querySnapshot = await getDocs(collection(db, "products"));
+//     const productsList = querySnapshot.docs.map((doc) => ({
+//       id: doc.id,
+//       ...doc.data(),
+//     }));
+//     return productsList;
+//   } catch (error) {
+//     console.error("Error fetching products:", error);
+//     throw new Response("Failed to fetch products", { status: 500 });
+//   }
+// }
+
+// function Carroussel() {
+//   return (
+//     <Swiper
+//       loop={true}
+//       spaceBetween={0}
+//       navigation={true}
+//       slidesPerView={1}
+//       modules={[Navigation, Autoplay]}
+//       autoplay={{
+//         delay: 2500,
+//         disableOnInteraction: false, // Continua mesmo após interação do usuário
+//       }}
+//     >
+//       {slideImages.map((image, index) => (
+//           <SwiperSlide key={index}>
+//             <img
+//               className="w-full h-64 object-cover"
+//               src={image}
+//               alt={`banner-home-${index}`}
+//             />
+//           </SwiperSlide>
+//         ))}
+//     </Swiper>
+//   );
+// }
+
+// export default function Home() {
+//   const products = useLoaderData();
+//   const { searchTerm } = useSearch();
+//   const [searchParams, setSearchParams] = useSearchParams();
+//   const categoryFilter = searchParams.get("categoria");
+
+//   const categories = [
+//     { name: "Cosméticos", icon: SparklesIcon, value: "cosmeticos" },
+//     {
+//       name: "Material Escolar",
+//       icon: AcademicCapIcon,
+//       value: "Material escolar",
+//     },
+//     {
+//       name: "Materiais de Costura",
+//       icon: ScissorsIcon,
+//       value: "Matérias de Costura",
+//     },
+//     {
+//       name: "Material de Escritório",
+//       icon: BriefcaseIcon,
+//       value: "Material escolar",
+//     },
+//     { name: "Higiene", icon: BeakerIcon, value: "Higiene" },
+//     { name: "Eletrônicos", icon: DevicePhoneMobileIcon, value: "Eletronicos" },
+//   ];
+
+//   const filteredProducts = products.filter((product) => {
+//     const matchesCategory = categoryFilter
+//       ? product.category === categoryFilter
+//       : true;
+//     const matchesSearch = searchTerm
+//       ? product.name.toLowerCase().includes(searchTerm.toLowerCase())
+//       : true;
+//     return matchesCategory && matchesSearch;
+//   });
+
+//   return (
+//     <>
+//       <Carroussel />
+
+//       {/* Filtros */}
+//       <div className="categories-container my-4">
+//         <div className="flex gap-4 overflow-x-auto whitespace-nowrap px-4">
+//           {categories.map(({ name, icon: Icon, value }) => (
+//             <button
+//               key={value}
+//               onClick={() => setSearchParams({ categoria: value })}
+//               className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
+//             >
+//               <Icon className="w-5 h-5 text-gray-500" />
+//               {name}
+//             </button>
+//           ))}
+//           <button
+//             onClick={() => setSearchParams({})}
+//             className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
+//           >
+//             <CubeTransparentIcon className="w-5 h-5 text-gray-500" />
+//             Mostrar Todos
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* Produtos filtrados */}
+//       <div className="products-container grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-2">
+//         {filteredProducts.map((product) => (
+//           <ProductCard
+//             key={product.id}
+//             id={product.id}
+//             name={product.name}
+//             image={product.image}
+//             price={product.price}
+//           />
+//         ))}
+//       </div>
+//     </>
+//   );
+// }
+
+// function ProductCard({ id, name, image, price }) {
+//   return (
+//     <article
+//       className="product border rounded-lg p-4 flex flex-col items-center"
+//       key={id}
+//     >
+//       <Link to={`/produtos/${id}/${name}`}>
+//         <div className="w-full h-40 mb-4">
+//           <img
+//             src={image}
+//             alt={name}
+//             className="w-full h-full object-cover rounded-md"
+//           />
+//         </div>
+//         <div className="info text-center">
+//           <div className="font-bold mb-2">{name}</div>
+//           <div className="text-lg text-green-600 mb-2">
+//             Kz <strong>{price}</strong>
+//           </div>
+//         </div>
+//       </Link>
+//     </article>
+//   );
+// }
+

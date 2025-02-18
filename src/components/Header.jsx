@@ -67,12 +67,7 @@ export default function Header() {
           <Link to="/" className="hover:text-green-600 transition duration-200">
             Produtos
           </Link>
-          <Link
-            to="checkout"
-            className="hover:text-green-600 transition duration-200"
-          >
-            Facturação
-          </Link>
+    
           <Link
             to="about"
             className="hover:text-green-600 transition duration-200"
