@@ -1,21 +1,15 @@
-import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { UserCircleIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { Link, useSearchParams } from "react-router-dom";
-import { useSearch } from "../context/SearchContext";
+
+// Importação do contexto do carrinho
 
 export default function Header() {
-  const { searchTerm, setSearchTerm } = useSearch();
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  console.log(searchTerm);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-
-    // Atualiza a URL com o parâmetro de pesquisa
     setSearchParams(value ? { pesquisa: value } : {});
   };
 
@@ -40,9 +34,14 @@ export default function Header() {
         </h1>
 
         {/* Shopping Cart */}
-        <div>
+        <div className="relative">
           <Link to="carinho-de-compras">
             <ShoppingBagIcon className="h-8 w-8 text-green-600 hover:text-green-800 transition duration-200" />
+            {true > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                {0}
+              </span>
+            )}
           </Link>
         </div>
       </div>
@@ -55,8 +54,6 @@ export default function Header() {
             id="search"
             type="search"
             placeholder="buscar produtos..."
-            value={searchTerm}
-            onChange={handleSearchChange}
           />
         </Link>
       </div>
@@ -67,7 +64,7 @@ export default function Header() {
           <Link to="/" className="hover:text-green-600 transition duration-200">
             Produtos
           </Link>
-    
+
           <Link
             to="about"
             className="hover:text-green-600 transition duration-200"

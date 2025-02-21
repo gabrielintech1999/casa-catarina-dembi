@@ -17,7 +17,6 @@ const slideImages = [
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import { useSearch } from "../context/SearchContext";
 import { AcademicCapIcon, BeakerIcon, BriefcaseIcon, CubeTransparentIcon, DevicePhoneMobileIcon, ScissorsIcon, SparklesIcon } from "@heroicons/react/24/outline";
 
 export async function loader() {
@@ -27,7 +26,7 @@ export async function loader() {
       id: doc.id,
       ...doc.data(),
     }));
-    return productsList;
+    return {productsList};
   } catch (error) {
     console.error("Error fetching products:", error);
     throw new Response("Failed to fetch products", { status: 500 });
@@ -63,10 +62,8 @@ function Carroussel() {
 }
 
 export default function Home() {
-  const products = useLoaderData();
-  const { searchTerm } = useSearch();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const categoryFilter = searchParams.get("categoria");
+
+  const { productsList } = useLoaderData();
 
   const categories = [
     { name: "Cosméticos", icon: SparklesIcon, value: "cosmeticos" },
@@ -89,15 +86,7 @@ export default function Home() {
     { name: "Eletrônicos", icon: DevicePhoneMobileIcon, value: "Eletronicos" },
   ];
 
-  const filteredProducts = products.filter((product) => {
-    const matchesCategory = categoryFilter
-      ? product.category === categoryFilter
-      : true;
-    const matchesSearch = searchTerm
-      ? product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      : true;
-    return matchesCategory && matchesSearch;
-  });
+
 
   return (
     <>
@@ -109,7 +98,6 @@ export default function Home() {
           {categories.map(({ name, icon: Icon, value }, index) => (
             <button
               key={index}
-              onClick={() => setSearchParams({ categoria: value })}
               className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
             >
               <Icon className="w-5 h-5 text-gray-500" />
@@ -117,7 +105,7 @@ export default function Home() {
             </button>
           ))}
           <button
-            onClick={() => setSearchParams({})}
+  
             className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
           >
             <CubeTransparentIcon className="w-5 h-5 text-gray-500" />
@@ -128,7 +116,7 @@ export default function Home() {
 
       {/* Produtos filtrados */}
       <div className="products-container grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-2">
-        {filteredProducts.map((product) => (
+        {productsList.map((product) => (
           <ProductCard
             key={product.id}
             id={product.id}

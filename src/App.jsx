@@ -17,7 +17,7 @@ import ProductDetail, { loader as detailLoader } from "./pages/productdetail";
 import Profile from "./pages/profile";
 import Auth from "./pages/auth";
 import RootLayout from "./RootLayout";
-import Results from "./pages/results";
+import Results, { loader as resultsLoader } from "./pages/results";
 import CheckOut, { action as checkoutAction } from "./pages/checkout";
 
 function NotFound() {
@@ -47,7 +47,7 @@ const router = createBrowserRouter(
 
 
       
-      <Route  path="/resultados" element={<Results  />} />
+      <Route  path="/resultados" element={<Results  />}  loader={resultsLoader} />
       <Route path="/facturaçao" element={<CheckOut />} action={checkoutAction} />
     </Route>
   )

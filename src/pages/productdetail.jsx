@@ -2,6 +2,7 @@ import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebase";
+import { useCart } from "../context/CartContext"; // 🔹 Importando o contexto
 
 export async function loader({ params }) {
   const { id } = params;
@@ -30,8 +31,15 @@ export async function loader({ params }) {
 
 const ProductDetail = () => {
   const { product } = useLoaderData();
-  const [selectedImage, setSelectedImage] = useState(product ? product.image[0] : "");
+  const { addToCart } = useCart(); // 🔹 Usando o contexto do carrinho
+
+  console.log(product);
+
+  const [selectedImage, setSelectedImage] = useState(
+    product ? product.image[0] : ""
+  );
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [quantity, setQuantity] = useState(1); // 🔹 Estado para a quantidade
 
   if (!product) {
     return <p>Produto não encontrado ou erro ao carregar os dados.</p>;
@@ -63,7 +71,9 @@ const ProductDetail = () => {
       </div>
       <p className="text-lg text-gray-700">{product.description}</p>
       <p className="text-xl font-semibold text-green-600">Kz {product.price}</p>
-      <p className="text-sm text-gray-500">Estoque disponível: {product.stock}</p>
+      <p className="text-sm text-gray-500">
+        Estoque disponível: {product.stock}
+      </p>
 
       <div className="mt-2">
         <label className="block text-sm">Quantidade:</label>
@@ -71,16 +81,30 @@ const ProductDetail = () => {
           type="number"
           min="1"
           max={Number(product.stock)}
-          defaultValue="1"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
           className="border p-1 w-16"
         />
       </div>
-      <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
+
+      <button
+        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+        onClick={() =>
+          addToCart({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity,
+          })
+        }
+      >
         Adicionar ao Carrinho
       </button>
 
       <Link
-        to={`/facturaçao?name=${encodeURIComponent(product.name)}&price=${product.price}&id=${product.id}`}
+        to={`/facturaçao?name=${encodeURIComponent(product.name)}&price=${
+          product.price
+        }&id=${product.id}`}
         className="inline-block px-4 py-2 bg-red-500 text-white rounded mt-4"
       >
         Comprar Agora
@@ -123,25 +147,3 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
-
-
-
-
-// "brand "
-// : 
-// "Silken"
-// category
-// : 
-// "Cosméticos e Cuidados Pessoais"
-// "description "
-// : 
-// "Este é um condicionador enriquecido com óleo de rícino e manteiga de karité, formulado para proporcionar hidratação, nutrição e restauração aos cabelos. Ele promete fortalecer os fios, dar brilho extremo e ajudar a reparar cabelos danificados e quebradiços"
-// image
-// : 
-// "https://drive.google.com/file/d/1dC4coD1Vxvx2FJOYkjdNoQEFY811Wr3I/view?usp=drivesdk"
-// name
-// : 
-// "Silken Natural Hair Soft & Rich Condicionador"
-// "price "
-// : 
-// 1900
