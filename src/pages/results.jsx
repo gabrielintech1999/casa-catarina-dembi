@@ -61,7 +61,7 @@ export default function Results() {
       </div>
 
       {/* Lista de produtos */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-2">
+      <div className="flex flex-col gap-4 p-2">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <ProductCard
@@ -73,7 +73,7 @@ export default function Results() {
             />
           ))
         ) : (
-          <p className="col-span-full text-center text-gray-500">
+          <p className="text-center text-gray-500">
             Nenhum produto encontrado.
           </p>
         )}

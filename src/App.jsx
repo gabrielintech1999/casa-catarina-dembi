@@ -4,7 +4,7 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from "react-router-dom";
-import Home, { loader as homeLoader } from "./pages/home";
+import Home, { loader as homeLoader, loader } from "./pages/home";
 import { Cart } from "./pages/cart";
 import { useState, useEffect } from "react";
 import {
@@ -14,11 +14,12 @@ import {
 } from "@heroicons/react/24/outline";
 
 import ProductDetail, { loader as detailLoader } from "./pages/productdetail";
-import Profile from "./pages/profile";
-import Auth from "./pages/auth";
+import Profile, {  loader as profileLoader } from "./pages/profile";
+import Auth, { action as authAction, loader as authLoader }  from "./pages/auth";
 import RootLayout from "./RootLayout";
 import Results, { loader as resultsLoader } from "./pages/results";
 import CheckOut, { action as checkoutAction } from "./pages/checkout";
+import Signup,  { action as signupAction } from "./pages/signup";
 
 function NotFound() {
   return (
@@ -38,9 +39,10 @@ const router = createBrowserRouter(
 
         <Route path="/carinho-de-compras" element={<Cart />} />
     
-        <Route path="/perfil" element={<Profile />} />
+        <Route path="/perfil" element={<Profile />}  loader={profileLoader} />
 
-        <Route path="/auth" element={<Auth />} />
+        <Route path="/auth" element={<Auth />}  loader={authLoader} action={authAction} />
+        <Route path="/signup" element={<Signup />}  action={signupAction} />
 
         <Route path="/produtos/:id/:name" element={<ProductDetail />} loader={detailLoader} />
       </Route>

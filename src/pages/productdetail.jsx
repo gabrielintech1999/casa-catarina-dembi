@@ -18,6 +18,7 @@ export async function loader({ params }) {
 
     if (docSnap.exists()) {
       const product = docSnap.data();
+      product.id = id; // Adicionando o id ao objeto do produto
       return { product };
     } else {
       console.log("Produto não encontrado");

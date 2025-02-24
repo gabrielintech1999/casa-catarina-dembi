@@ -1,50 +1,31 @@
 import React from "react";
-import {
-  useLoaderData,
-  useNavigation,
-  Form,
-  redirect,
-  useActionData,
-} from "react-router-dom";
-
-export function loader({ request }) {
-  return new URL(request.url).searchParams.get("message");
-}
+import { Form, redirect, useActionData, useNavigation } from "react-router-dom";
 
 export async function action({ request }) {
   const formData = await request.formData();
   const email = formData.get("phone");
   const password = formData.get("password");
-  const pathname = new URL(request.url).searchParams.get("redirectTo") || "/host";
 
-  const error = await validateFormData({ email, password });
+  const error = validateFormData({ email, password });
   if (error) {
     return error;
   }
 
   try {
-    const data = await loginUser({ email, password });
-    return redirect(pathname);
+    const data = await registerUser({ email, password });
+    return redirect("/login");
   } catch (err) {
     return err.message;
   }
 }
 
 // Função de validação
-async function validateFormData({ email, password }) {
-  new Promise((resolve, reject) => {
-    setTimeout(() => { 
-      resolve("A processar...");
-     }, 7000);
-  });
-
-
-
+function validateFormData({ email, password }) {
   if (!email || !password) {
     return "Todos os campos são obrigatórios.";
   }
   if (!/^\d{9}$/.test(email)) {
-    return "Número de telefone inválido. Deve  ter 9 dígitos.";
+    return "Número de telefone inválido. Deve ter 9 dígitos.";
   }
   if (password.length < 6) {
     return "A senha deve ter pelo menos 6 caracteres.";
@@ -52,30 +33,28 @@ async function validateFormData({ email, password }) {
   return null;
 }
 
-// Função de login fake com atraso de 3 segundos
-async function loginUser({ email, password }) {
+// Função de registro fake com atraso de 3 segundos
+async function registerUser({ email, password }) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (email === "test@example.com" && password === "password") {
+      if (email && password) {
         resolve({ email });
       } else {
-        reject(new Error("Invalid email or password"));
+        reject(new Error("Erro ao criar conta"));
       }
-    }, 7000); // 3 segundos de atraso
+    }, 3000); // 3 segundos de atraso
   });
 }
 
-export default function Login() {
+export default function Signup() {
   const errorMessage = useActionData();
-  const message = useLoaderData();
   const navigation = useNavigation();
 
   return (
     <div className="flex justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-center">Bem-vindo de volta! Faça login ou crie uma nova conta</h1>
+        <h1 className="text-2xl font-bold mb-6 text-center">Crie sua conta</h1>
         <div className="text-center">
-          {message && <h3 className="text-red-500 mb-4">{message}</h3>}
           {errorMessage && <h3 className="text-red-500 mb-4">{errorMessage}</h3>}
         </div>
         <Form method="post" className="space-y-4" replace>
@@ -122,17 +101,14 @@ export default function Login() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zM12 24c6.627 0 12-5.373 12-12h-4a8 8 0 01-8 8v4z"
                     ></path>
                   </svg>
-                  Entrando...
+                  Criando...
                 </>
               ) : (
-"Entrar"
+                "Criar Conta"
               )}
             </button>
           </div>
         </Form>
-        <div className="text-center mt-4">
-          <p>Não tem uma conta? <a href="/signup" className="text-blue-500 hover:underline">Crie uma conta</a></p>
-        </div>
       </div>
     </div>
   );
