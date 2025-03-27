@@ -20,6 +20,14 @@ const slideImages = [
 
 
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Seja Bem-vindo" },
+    { name: "description", content: "Navegue e descubra milhões de produtos. Leia avaliações de clientes e encontre os mais vendidos. Sim, nós enviamos para você!" },
+  ];
+}
+
+
 export async function loader() {
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
@@ -202,3 +210,80 @@ function ProductCard({ id, name, image, price }) {
 
 
 
+
+
+
+
+
+
+// import { getUserFromCookie } from "~/utils/cookie";
+// import type { Route } from "./+types/home";
+
+// // Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import { Navigation, Autoplay } from "swiper/modules";
+
+
+// function Carroussel() {
+//   return (
+//     <Swiper
+//       loop={true}
+//       spaceBetween={0}
+//       navigation={true}
+//       slidesPerView={1}
+//       modules={[Navigation, Autoplay]}
+//       autoplay={{
+//         delay: 2500,
+//         disableOnInteraction: false, // Continua mesmo após interação do usuário
+//       }}
+//     >
+//       {Array(10)
+//         .fill(0)
+//         .map((_, index) => (
+//           <SwiperSlide key={index}>
+//             <img
+//               className="w-full h-64 object-cover"
+//               src="https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI="
+//               alt={`banner-home-${index}`}
+//             />
+//           </SwiperSlide>
+//         ))}
+//     </Swiper>
+//   );
+// }
+
+// export function meta({}: Route.MetaArgs) {
+//   return [
+//     { title: "Seja Bem-vindo" },
+//     { name: "description", content: "Welcome to React Router!" },
+//   ];
+// }
+
+// export async function loader({ request }: Route.LoaderArgs) {
+//   const user = await getUserFromCookie(request);
+//   console.log(user);
+//   return null;
+// }
+
+// export default function Home() {
+//   return (
+//     <div>
+//       <Carroussel />
+//       <h1> Home Page </h1>
+//     </div>
+//   );
+// }
+
+// // <div className="bg-red-600 p-4 text-white font-bold">
+// // <h1>Hello home</h1>
+// // </div>
+
+
+
+// const slideImages = [
+//   "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+//   "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+//   "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+// ];

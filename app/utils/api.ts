@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import {
   collection,
   doc,
@@ -24,13 +24,14 @@ export async function loginUser({
   if (!querySnapshot.empty) {
     const userDoc = querySnapshot.docs[0];
     const userData = userDoc.data();
-    const passwordMatch = await bcrypt.compare(password, userData.password);
+    
+    // bcryptjs usa compareSync para verificação síncrona
+    const passwordMatch = bcrypt.compareSync(password, userData.password);
+    
     if (passwordMatch) {
       return { id: userDoc.id, ...userData };
     } else {
-      throw new Error(
-        "A palavra-passe ou número de telefone estão incorretos."
-      );
+      throw new Error("A palavra-passe ou número de telefone estão incorretos.");
     }
   } else {
     throw new Error("A palavra-passe ou número de telefone estão incorretos.");
@@ -42,7 +43,7 @@ export async function createCustomer(
   address: string,
   phone: string,
   password: string,
-  acceptedTerms: boolean // Add this parameter
+  acceptedTerms: boolean
 ) {
   const customerRef = doc(collection(db, "customers"), phone);
   const customerSnap = await getDoc(customerRef);
@@ -51,7 +52,8 @@ export async function createCustomer(
     throw new Error("Usuário já existe");
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  // bcryptjs usa hashSync para gerar hash de forma síncrona
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   const customerData = {
     name,
@@ -64,5 +66,5 @@ export async function createCustomer(
 
   await setDoc(customerRef, customerData);
 
-  return { id: customerRef.id, ...customerData }; // Return the created customer
+  return { id: customerRef.id, ...customerData };
 }

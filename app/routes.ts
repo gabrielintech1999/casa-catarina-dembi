@@ -9,7 +9,7 @@ export default [
   layout("layouts/RootLayout.tsx", [
     index("routes/home.tsx"),
     route("/items/:name/:id", "routes/productdetail.tsx"),
-    route("/lista-de-compras", "routes/cart.tsx"),
+    route("/carinho-de-compras", "routes/cart.tsx"),
   ]),
   route("/perfil", "routes/dashboard.tsx"),
   route("/facturação", "routes/checkout.tsx"),
