@@ -9,7 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
-
+  
 // Função de login com Firestore
 export async function loginUser({
   phone,
@@ -24,17 +24,14 @@ export async function loginUser({
   if (!querySnapshot.empty) {
     const userDoc = querySnapshot.docs[0];
     const userData = userDoc.data();
-    
-    // bcryptjs usa compareSync para verificação síncrona
-    const passwordMatch = bcrypt.compareSync(password, userData.password);
-    
+    const passwordMatch = await bcrypt.compare(password, userData.password);
     if (passwordMatch) {
       return { id: userDoc.id, ...userData };
     } else {
       throw new Error("A palavra-passe ou número de telefone estão incorretos.");
     }
   } else {
-    throw new Error("A palavra-passe ou número de telefone estão incorretos.");
+    throw new Error("Nenhum usuário com essas credenciais foi encontrado!");
   }
 }
 
@@ -43,7 +40,7 @@ export async function createCustomer(
   address: string,
   phone: string,
   password: string,
-  acceptedTerms: boolean
+  acceptedTerms: boolean // Add this parameter
 ) {
   const customerRef = doc(collection(db, "customers"), phone);
   const customerSnap = await getDoc(customerRef);
@@ -52,8 +49,7 @@ export async function createCustomer(
     throw new Error("Usuário já existe");
   }
 
-  // bcryptjs usa hashSync para gerar hash de forma síncrona
-  const hashedPassword = bcrypt.hashSync(password, 10);
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const customerData = {
     name,
@@ -66,5 +62,5 @@ export async function createCustomer(
 
   await setDoc(customerRef, customerData);
 
-  return { id: customerRef.id, ...customerData };
+  return { id: customerRef.id, ...customerData }; // Return the created customer
 }
