@@ -11,11 +11,19 @@ import { db } from "~/utils/firebase";
 import type { Route } from "./+types/home";
 
 
-const slideImages = [
-  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
-  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
-  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+import banner1 from "../assets/images.jpg";
+import banner2 from "../assets/close-up-collection-of-make-up-and-beauty-products-1024x706.jpg";
+import banner3 from "../assets/png-clipart-personal-care-lotion-hygiene-cosmetics-feminine-sanitary-supplies-soap-miscellaneous-food-thumbnail.png";
+import banner4 from "../assets/png-clipart-scissors-and-needle-and-thread-high-definition-deduction-material-button-needle.png";
+import banner5 from "../assets/images (1).jpg";
+//import logoLight from "./logo-light.svg";
 
+const slideImages = [
+  banner1,
+  banner2,
+  banner3,
+  banner4,
+  banner5,
 ]
 
 
@@ -55,13 +63,13 @@ function Carroussel() {
         disableOnInteraction: false, // Continua mesmo após interação do usuário
       }}
     >
-      {Array(10)
+      {Array(5)
         .fill(0)
         .map((_, index) => (
           <SwiperSlide key={index}>
             <img
               className="w-full h-64 object-cover"
-              src="https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI="
+              src={slideImages[index]}
               alt={`banner-home-${index}`}
             />
           </SwiperSlide>
