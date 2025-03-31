@@ -11,7 +11,7 @@ export async function requireAuth(request: Request) {
    
      if (!user) {
        throw redirect(
-         `/iniciar-sessao?message=voce deve iniciar a sessão primeiro.&redirectTo=${pathname}`
+         `/iniciar-sessao?message=voce deve iniciar a sessao primeiro.&redirectTo=${pathname}`
        );
      }
 

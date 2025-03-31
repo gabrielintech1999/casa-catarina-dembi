@@ -6,10 +6,17 @@ import { useEffect, useState } from "react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
-import { AcademicCapIcon, BeakerIcon, BriefcaseIcon, CubeTransparentIcon, DevicePhoneMobileIcon, ScissorsIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import {
+  AcademicCapIcon,
+  BeakerIcon,
+  BriefcaseIcon,
+  CubeTransparentIcon,
+  DevicePhoneMobileIcon,
+  ScissorsIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import { db } from "~/utils/firebase";
 import type { Route } from "./+types/home";
-
 
 import banner1 from "../assets/images.jpg";
 import banner2 from "../assets/close-up-collection-of-make-up-and-beauty-products-1024x706.jpg";
@@ -24,17 +31,19 @@ const slideImages = [
   banner3,
   banner4,
   banner5,
-]
-
-
+  "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
+];
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Seja Bem-vindo" },
-    { name: "description", content: "Navegue e descubra milhões de produtos. Leia avaliações de clientes e encontre os mais vendidos. Sim, nós enviamos para você!" },
+    {
+      name: "description",
+      content:
+        "Navegue e descubra milhões de produtos. Leia avaliações de clientes e encontre os mais vendidos. Sim, nós enviamos para você!",
+    },
   ];
 }
-
 
 export async function loader() {
   try {
@@ -43,7 +52,7 @@ export async function loader() {
       id: doc.id,
       ...doc.data(),
     }));
-    return {productsList};
+    return { productsList };
   } catch (error) {
     console.error("Error fetching products:", error);
     throw new Response("Failed to fetch products", { status: 500 });
@@ -78,13 +87,11 @@ function Carroussel() {
   );
 }
 
-export default function Home({loaderData}: Route.ComponentProps) {
-
+export default function Home({ loaderData }: Route.ComponentProps) {
   const { productsList } = loaderData;
 
-
   //console.log(productList);
-  
+
   const [welcomeMessage, setWelcomeMessage] = useState("");
 
   useEffect(() => {
@@ -95,8 +102,6 @@ export default function Home({loaderData}: Route.ComponentProps) {
       setTimeout(() => setWelcomeMessage(""), 5000);
     }
   }, []);
-
-  
 
   const categories = [
     { name: "Cosméticos", icon: SparklesIcon, value: "cosmeticos" },
@@ -120,8 +125,8 @@ export default function Home({loaderData}: Route.ComponentProps) {
   ];
 
   const scrollCategories = () => {
-    const container = document.querySelector('.categories-container .flex');
-    container.scrollBy({ left: 200, behavior: 'smooth' });
+    const container = document.querySelector(".categories-container .flex");
+    container.scrollBy({ left: 200, behavior: "smooth" });
   };
 
   return (
@@ -145,10 +150,7 @@ export default function Home({loaderData}: Route.ComponentProps) {
               {name}
             </button>
           ))}
-          <button
-  
-            className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition"
-          >
+          <button className="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-full text-gray-700 hover:bg-gray-200 transition">
             <CubeTransparentIcon className="w-5 h-5 text-gray-500" />
             Mostrar Todos
           </button>
@@ -191,7 +193,6 @@ export default function Home({loaderData}: Route.ComponentProps) {
 }
 
 function ProductCard({ id, name, image, price }) {
-
   return (
     <article
       className="product border rounded-lg p-4 flex flex-col items-center"
@@ -204,7 +205,7 @@ function ProductCard({ id, name, image, price }) {
             alt={name}
             className="w-full h-full object-cover rounded-md"
           />
-        </div> 
+        </div>
         <div className="info text-left">
           <div className="font-bold mb-2">{name}</div>
           <div className="text-lg text-green-600 mb-2">
@@ -216,14 +217,6 @@ function ProductCard({ id, name, image, price }) {
   );
 }
 
-
-
-
-
-
-
-
-
 // import { getUserFromCookie } from "~/utils/cookie";
 // import type { Route } from "./+types/home";
 
@@ -232,7 +225,6 @@ function ProductCard({ id, name, image, price }) {
 // import "swiper/css/navigation";
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import { Navigation, Autoplay } from "swiper/modules";
-
 
 // function Carroussel() {
 //   return (
@@ -287,8 +279,6 @@ function ProductCard({ id, name, image, price }) {
 // // <div className="bg-red-600 p-4 text-white font-bold">
 // // <h1>Hello home</h1>
 // // </div>
-
-
 
 // const slideImages = [
 //   "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
