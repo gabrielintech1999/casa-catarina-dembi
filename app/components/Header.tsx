@@ -43,7 +43,7 @@ export default function Header() {
           {/* Shopping Cart */}
 
           <div className="relative">
-            <Link to="/carrinho-de-compras">
+            <Link to="/resultados">
               <GoSearch className="mr-2 text-4xl" />
             </Link>
           </div>
