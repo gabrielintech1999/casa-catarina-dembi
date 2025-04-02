@@ -85,3 +85,16 @@ This template comes with [Tailwind CSS](https://tailwindcss.com/) already config
 ---
 
 Built with ❤️ using React Router.
+
+
+
+
+Cosméticos e Cuidados Pessoais
+Material Escolar 
+Material de Costura
+Perfumes e Fragrâncias
+Maquiagem
+Higiene Pessoal 
+Eletronicos
+Material de Escritório 
+Moda e Estilo

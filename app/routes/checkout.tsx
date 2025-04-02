@@ -77,7 +77,7 @@ export const action = async ({ request }) => {
   console.log("Dados válidos:", orderData);
 
   // Processar o pedido (redirecionar ou salvar no banco de dados)
-  return redirect("/"); // Alterar rota conforme necessário
+  return redirect("/congratulations"); // Alterar rota conforme necessário
 };
 
 export default function Checkout({ loaderData }: Route.ComponentProps) {
