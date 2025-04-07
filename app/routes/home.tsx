@@ -18,15 +18,14 @@ import {
 import { db } from "~/utils/firebase";
 import type { Route } from "./+types/home";
 
-import banner1 from "../assets/LOJA_HOME.webp";
-import banner2 from "../assets/WhatsApp Image 2025-01-29 at 12.10.12 (1).jpeg";
+import banner2 from "../assets/LOJA_HOME.webp";
+import banner1 from "../assets/WhatsApp Image 2025-01-29 at 12.10.12 (1).jpeg";
 import banner3 from "../assets/WhatsApp-Image-2021-02-24-at-09.58.05-1-1024x682.jpeg";
 import banner4 from "../assets/close-up-collection-of-make-up-and-beauty-products-1024x706.jpg";
 import banner5 from "../assets/colgate.jpg";
 import banner6 from "../assets/fundo-com-artigos-da-costura-38109575.webp";
 import banner7 from "../assets/maxresdefault.jpg";
-import banner8 from "../assets/png-clipart-personal-care-lotion-hygiene-cosmetics-feminine-sanitary-supplies-soap-miscellaneous-food-thumbnail.png";
-import banner9 from "../assets/png-clipart-scissors-and-needle-and-thread-high-definition-deduction-material-button-needle.png"
+import banner8 from "../assets/maxresdefault (1).jpg"
 //import logoLight from "./logo-light.svg";
 
 const slideImages = [
@@ -35,6 +34,10 @@ const slideImages = [
   banner3,
   banner4,
   banner5,
+  banner6,
+  banner7,
+  banner8,
+ 
   "https://media.istockphoto.com/id/1413950709/photo/young-afro-woman-using-mobile-phone-at-coffee-shop.jpg?s=1024x1024&amp;w=is&amp;k=20&amp;c=bTYbxmyfRtOt8ZXen5jDw835fi1YCWh6OziUtNFivLI=",
 ];
 
@@ -76,7 +79,7 @@ function Carroussel() {
         disableOnInteraction: false, // Continua mesmo após interação do usuário
       }}
     >
-      {Array(5)
+      {Array(8)
         .fill(0)
         .map((_, index) => (
           <SwiperSlide key={index}>
