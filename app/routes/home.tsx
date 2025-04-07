@@ -18,11 +18,15 @@ import {
 import { db } from "~/utils/firebase";
 import type { Route } from "./+types/home";
 
-import banner1 from "../assets/images.jpg";
-import banner2 from "../assets/close-up-collection-of-make-up-and-beauty-products-1024x706.jpg";
-import banner3 from "../assets/png-clipart-personal-care-lotion-hygiene-cosmetics-feminine-sanitary-supplies-soap-miscellaneous-food-thumbnail.png";
-import banner4 from "../assets/png-clipart-scissors-and-needle-and-thread-high-definition-deduction-material-button-needle.png";
-import banner5 from "../assets/images (1).jpg";
+import banner1 from "../assets/LOJA_HOME.webp";
+import banner2 from "../assets/WhatsApp Image 2025-01-29 at 12.10.12 (1).jpeg";
+import banner3 from "../assets/WhatsApp-Image-2021-02-24-at-09.58.05-1-1024x682.jpeg";
+import banner4 from "../assets/close-up-collection-of-make-up-and-beauty-products-1024x706.jpg";
+import banner5 from "../assets/colgate.jpg";
+import banner6 from "../assets/fundo-com-artigos-da-costura-38109575.webp";
+import banner7 from "../assets/maxresdefault.jpg";
+import banner8 from "../assets/png-clipart-personal-care-lotion-hygiene-cosmetics-feminine-sanitary-supplies-soap-miscellaneous-food-thumbnail.png";
+import banner9 from "../assets/png-clipart-scissors-and-needle-and-thread-high-definition-deduction-material-button-needle.png"
 //import logoLight from "./logo-light.svg";
 
 const slideImages = [

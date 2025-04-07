@@ -102,8 +102,7 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
       <div className="bg-white p-6 w-full">
         <h1 className="text-2xl font-semibold text-gray-800 text-center">
           <Link
-            to={`/produtos/${id}/${name}`}
-            relative="path"
+            to={`/`}
             style={{ textDecoration: "none", fontSize: "24px" }}
           >
             &#8592; Voltar
