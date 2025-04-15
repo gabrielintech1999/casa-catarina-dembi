@@ -58,7 +58,7 @@ export default function Cart() {
       <IoIosArrowRoundBack size={30}  />
       </button>
       </header>
-      <div className="p-4">
+      <div className="p-4 h-screen">
     
       {cartItems.length === 0 ? (
         <div className="text-center">
@@ -108,12 +108,23 @@ export default function Cart() {
         </b>
       </div>
       <div>
+        {cartItems.length > 0 && (
+          <Link
+            to="/checkout"
+            className="bg-green-600 text-white p-2 rounded flex items-center gap-2"
+          >
+            <FaCreditCard />
+            Finalizar Compra
+          </Link>
+        )}
         <Link
-          to={"/facturação"}
-          className="flex items-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          to="/"
+          className="bg-gray-200 text-gray-700 p-2 rounded flex items-center gap-2 mt-2"
         >
-          <FaCreditCard className="mr-2" /> Finalizar Agora
+          <FaCreditCard />
+          Continuar Comprando
         </Link>
+
       </div>
     </div>
   </div>

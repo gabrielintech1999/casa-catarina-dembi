@@ -45,7 +45,7 @@ export async function action({ request }: Route.ActionArgs) {
 
   try {
     const customer = await loginUser({ phone, password });
-    console.log(customer);
+    console.log(customer); 
 
     return redirect("/", { 
       headers: {

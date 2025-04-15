@@ -22,7 +22,9 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex flex-col p-4 bg-white shadow-md md:flex-row md:justify-between md:items-center">
+
+    <div  className="sticky top-0 z-50  p-4 bg-white shadow-md md:flex-row md:justify-between md:items-center">
+    <header className="flex flex-col">
       {/* Top Section */}
 
       <div className="flex justify-between items-center mb-4 md:mb-0">
@@ -60,8 +62,10 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <nav>
+
+    </header>
+          {/* Navigation Menu */}
+          <nav>
         <div className="flex gap-5 text-lg font-medium text-gray-600">
           <NavLink to="/"   className={({ isActive }) =>
             `hover:text-green-600 transition duration-200 relative ${
@@ -78,6 +82,7 @@ export default function Header() {
           </NavLink>
         </div>
       </nav>
-    </header>
+  </div>
+
   );
 }

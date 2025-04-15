@@ -68,7 +68,8 @@ export async function loader() {
 
 function Carroussel() {
   return (
-    <Swiper
+    <div className="h-[300px] bg-white">
+         <Swiper
       loop={true}
       spaceBetween={0}
       navigation={true}
@@ -78,6 +79,7 @@ function Carroussel() {
         delay: 2500,
         disableOnInteraction: false, // Continua mesmo após interação do usuário
       }}
+      className="h-[100%]"
     >
       {Array(8)
         .fill(0)
@@ -91,6 +93,8 @@ function Carroussel() {
           </SwiperSlide>
         ))}
     </Swiper>
+    </div>
+   
   );
 }
 
@@ -153,7 +157,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     <>
       <Carroussel />
 
-      <div className="categories-container my-4 relative">
+      <div className=" my-4 relative">
         <div className="flex gap-4 overflow-x-auto whitespace-nowrap px-4">
           {categories.map(({ name, icon: Icon, value }, index) => (
             <button
@@ -192,28 +196,55 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
 function ProductCard({ id, name, image, price }) {
   return (
-    <article
-      className="product border rounded-lg p-4 flex flex-col items-center"
-      key={id}
-    >
-      <Link to={`/items/${name}/${id}`}>
-        <div className="w-full h-40 mb-4">
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover rounded-md"
-          />
-        </div>
-        <div className="info text-left">
-          <div className="font-bold mb-2">{name}</div>
-          <div className="text-lg text-green-600 mb-2">
-            Kz <strong>{price}</strong>
-          </div>
-        </div>
-      </Link>
-    </article>
+<article
+  className="rounded-lg p-4 flex flex-col items-center shadow-lg border border-gray-200 hover:shadow-xl hover:border-gray-300 transition"
+  key={id}
+>
+  <Link to={`/items/${name}/${id}`}>
+    <div className="w-full h-40 mb-4">
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-full object-cover rounded-md"
+      />
+    </div>
+    <div className="info text-left">
+      <div className="font-bold mb-2">{name}</div>
+      <div className="text-lg text-green-600 mb-2">
+        Kz <strong>{price}</strong>
+      </div>
+    </div>
+  </Link>
+</article>
+
+
+  
+  
   );
 }
+
+
+
+{/* <article
+className="product rounded-lg p-4 flex flex-col items-center shadow-lg border border-gray-200 hover:shadow-xl hover:border-gray-300 transition"
+key={id}
+>
+<Link to={`/items/${name}/${id}`}>
+  <div className="w-full h-40 mb-4">
+    <img
+      src={image}
+      alt={name}
+      className="w-full h-full object-cover rounded-md"
+    />
+  </div>
+  <div className="info text-left">
+    <div className="font-bold mb-2">{name}</div>
+    <div className="text-lg text-green-600 mb-2">
+      Kz <strong>{price}</strong>
+    </div>
+  </div>
+</Link>
+</article> */}
 
 // import { Link, useLoaderData, useSearchParams } from "react-router";
 // import { Swiper, SwiperSlide } from "swiper/react";

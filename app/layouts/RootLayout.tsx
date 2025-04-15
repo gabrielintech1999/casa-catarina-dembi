@@ -19,12 +19,12 @@ export default function RootLayout() {
   }, [navigation.state]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen  ">
       <Header />
-      <div className={`min-h-screen relative transition-all duration-300 ${showLoader ? "opacity-50 blur-sm" : "opacity-100 blur-0"}`}>
+      <div className={`min-h-screen max-w-[1000px] m-auto relative transition-all duration-300 ${showLoader ? "opacity-50 blur-sm" : "opacity-100 blur-0"}`}>
         <Outlet />
-      </div>
       <Footer />
+      </div>
 
       {showLoader && (
         <div className="fixed inset-0 flex items-center justify-center pointer-events-none z-50">
