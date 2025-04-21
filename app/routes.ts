@@ -13,7 +13,7 @@ export default [
   ]),
   route("/congratulations", "routes/congratulations.tsx"),
   route("/perfil", "routes/dashboard.tsx"),
-  route("/facturação", "routes/checkout.tsx"),
+  route("/facturacao", "routes/checkout.tsx"),
   route("/resultados", "routes/search.tsx"),
   route("/iniciar-sessao", "routes/signin.tsx"),
   route("/criar-conta", "routes/signup.tsx"),

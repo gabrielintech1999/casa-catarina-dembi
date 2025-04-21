@@ -1,4 +1,4 @@
-import { Link, useLoaderData, useSearchParams } from "react-router";
+import { Link, useLoaderData, useOutletContext, useSearchParams } from "react-router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { collection, getDocs } from "firebase/firestore";
@@ -26,6 +26,7 @@ import banner5 from "../assets/colgate.jpg";
 import banner6 from "../assets/fundo-com-artigos-da-costura-38109575.webp";
 import banner7 from "../assets/maxresdefault.jpg";
 import banner8 from "../assets/maxresdefault (1).jpg"
+import { userCookie } from "~/utils/cookie";
 //import logoLight from "./logo-light.svg";
 
 const slideImages = [
@@ -52,7 +53,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-export async function loader() {
+export async function loader({ request }: Route.LoaderArgs) {
   try {
     const querySnapshot = await getDocs(collection(db, "products"));
     const productsList = querySnapshot.docs.map((doc) => ({
@@ -99,6 +100,9 @@ function Carroussel() {
 }
 
 export default function Home({ loaderData }: Route.ComponentProps) {
+    const { user } = useOutletContext();
+    console.log(user);
+    
   const { productsList } = loaderData;
   const [filteredProducts, setFilteredProducts] = useState(productsList);
 

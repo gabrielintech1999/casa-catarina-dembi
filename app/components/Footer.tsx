@@ -9,7 +9,7 @@ export default function Footer() {
         <a href="">Termos e Condições </a>
         <a href="">Contactos</a>
       </div>
-      
+
     </footer>
     )
   

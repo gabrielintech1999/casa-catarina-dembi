@@ -110,7 +110,7 @@ export default function Cart() {
       <div>
         {cartItems.length > 0 && (
           <Link
-            to="/checkout"
+            to="/facturacao"
             className="bg-green-600 text-white p-2 rounded flex items-center gap-2"
           >
             <FaCreditCard />

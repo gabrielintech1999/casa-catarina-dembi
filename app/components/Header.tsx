@@ -5,21 +5,7 @@ import { Link, useSearchParams } from "react-router"; // Correção na importaç
 import { GoSearch } from "react-icons/go";
 import { NavLink } from "react-router";
 
-export default function Header() {
-  const [cartCount, setCartCount] = useState(0);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [searchTerm, setSearchTerm] = useState("");
-
-  useEffect(() => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    setCartCount(cart.length);
-  }, []);
-
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    setSearchParams(value ? { pesquisa: value } : {});
-  };
+export default function Header({ cart, user }) {
 
   return (
 
@@ -31,16 +17,19 @@ export default function Header() {
         {/* Profile Section */}
 
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-green-600">
-          <Link to="/">Casa Catarina Dembi</Link>
+        <h1 className="text-2xl font-bold text-green-700">
+          <a href="/">Casa Catarina Dembi</a>
         </h1>
 
         <div className="flex items-center gap-4">
-          <div className="relative">
-            <Link to="/perfil">
-              <CiUser size={38} />
-            </Link>
-          </div>
+        <div className="relative flex flex-col items-center">
+  <Link to="/perfil">
+    <CiUser size={32} />
+  </Link>
+  {user && (
+    <span className="text-sm mt-1">{user.name}</span>
+  )}
+</div>
 
           {/* Shopping Cart */}
 
@@ -52,9 +41,9 @@ export default function Header() {
           <div className="relative">
             <Link to="/carrinho-de-compras">
               <CgShoppingCart className="mr-2 text-4xl" />
-              {cartCount > 0 && (
+              {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
-                  {cartCount}
+                  {cart.length}
                 </span>
               )}
             </Link>
