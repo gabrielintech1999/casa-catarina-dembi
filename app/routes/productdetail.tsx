@@ -7,6 +7,23 @@ import { db } from "~/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 
+ 
+export function meta({ params }: Route.MetaArgs) {
+
+  console.log(params)  
+  
+  const { name } = params
+
+  return [
+    { title: name }, 
+    {
+      name: "description",
+      content:
+        "Navegue e descubra milhões de produtos. Leia avaliações de clientes e encontre os mais vendidos. Sim, nós enviamos para você!",
+    },
+  ];
+}
+
 type Product = {
   id: string;
   name: string;
@@ -134,7 +151,7 @@ export default function ProductDetail({ loaderData }: Route.ComponentProps) {
           <CgShoppingCart className="mr-2" /> Adicionar ao carrinho
         </button>
         <Link
-          to={`/facturação?name=${encodeURIComponent(product.name)}`}
+          to={`/facturacao?name=${encodeURIComponent(product.name)}`}
           className="flex items-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
         >
           <FaCreditCard className="mr-2" /> Comprar Agora

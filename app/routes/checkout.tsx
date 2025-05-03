@@ -10,6 +10,7 @@ import { useState } from "react";
 import { requireAuth } from "~/utils/protect";
 import type { Route } from "./+types/checkout";
 import { userCookie } from "~/utils/cookie";
+import { useNavigate } from "react-router";
 
 export async function loader({ request }: Route.LoaderArgs) {
   await requireAuth(request);
@@ -97,6 +98,8 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
     setIsSubmitting(true);
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-white p-6 w-full">
@@ -118,10 +121,6 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
             Resumo do Pedido
           </h2>
           <div className="mt-4 bg-gray-50 p-4 rounded-lg shadow-inner">
-            <div className="flex justify-between text-gray-700">
-              <span>Produto:</span>
-              <span>Camiseta Premium</span>
-            </div>
             <div className="flex justify-between text-gray-700 mt-2">
               <span>Quantidade:</span>
               <span>1</span>
@@ -250,6 +249,7 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
               </button>
 
               <button
+              onClick={() => navigate(-1)}
                 type="button"
                 className="w-full bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition mt-4"
               >

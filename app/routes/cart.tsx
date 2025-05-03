@@ -52,8 +52,8 @@ export default function Cart() {
   };
 
   return (
-  <div>
-      <header className="sticky top-0 z-50  p-2 bg-white shadow-md md:flex-row md:justify-between md:items-center">
+  <div className="min-h-screen bg-white p-4 max-w-md mx-auto overflow-auto my-5">
+      <header className=" p-2 bg-white shadow-md md:flex-row md:justify-between md:items-center">
       <button onClick={() => navigate(-1)}>
       <IoIosArrowRoundBack size={30}  />
       </button>
