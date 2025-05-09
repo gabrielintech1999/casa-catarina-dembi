@@ -7,15 +7,13 @@ import { db } from "~/utils/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 
- 
 export function meta({ params }: Route.MetaArgs) {
+  console.log(params);
 
-  console.log(params)  
-  
-  const { name } = params
+  const { name } = params;
 
   return [
-    { title: name }, 
+    { title: name },
     {
       name: "description",
       content:
@@ -100,67 +98,73 @@ export default function ProductDetail({ loaderData }: Route.ComponentProps) {
   return (
     <div className="p-4 relative">
       {message && (
-        <div  className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-3 rounded shadow-lg z-50"
-        style={{
-          animation: "slide-in 0.5s ease-out",
-        }}>
+        <div
+          className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-3 rounded shadow-lg z-50"
+          style={{
+            animation: "slide-in 0.5s ease-out",
+          }}
+        >
           {message}
         </div>
       )}
 
-      <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
-
-      <img
-        src={product.image[0]}
-        alt={product.name}
-        className="w-full h-64 object-cover mb-4 rounded"
-      />
-
-      <p className="text-xl font-semibold mb-4">
-        Kz{" "}
-        {product.price.toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        })}
-      </p>
-
-      <div className="flex gap-2 justify-between items-center mb-4">
-        <p className="font-medium">Quantidade</p>
-        <div className="flex items-center gap-6 bg-gray-100 px-4 py-2 rounded shadow-sm">
-          <button
-            onClick={() => handleQuantityChange("decrease")}
-            className="text-xl px-2 hover:text-red-500"
-          >
-            -
-          </button>
-          <span className="text-lg font-semibold">{quantity}</span>
-          <button
-            onClick={() => handleQuantityChange("increase")}
-            className="text-xl px-2 hover:text-green-500"
-          >
-            +
-          </button>
+      <div className="md:flex md:gap-8 md:items-start">
+        <div className="md:w-1/2">
+          <img
+            src={product.image[0]}
+            alt={product.name}
+            className="max-w-full h-auto md:h-[400px] object-cover rounded-2xl shadow-md hover:scale-105 transition-transform"
+          />
         </div>
-      </div>
 
-      <div className="flex flex-col gap-3 mb-6">
-        <button
-          onClick={addToCart}
-          className=" flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-        >
-          <CgShoppingCart className="mr-2" /> Adicionar ao carrinho
-        </button>
-        <Link
-          to={`/facturacao?name=${encodeURIComponent(product.name)}`}
-          className="flex items-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-        >
-          <FaCreditCard className="mr-2" /> Comprar Agora
-        </Link>
-      </div>
-
-      <div>
-        <h2 className="text-lg font-bold mb-2">Descrição</h2>
-        <p className="text-gray-700 leading-relaxed">{product.description}</p>
+        <div className="mt-6 md:mt-0 md:flex-1 space-y-6">
+          <h1 className="text-2xl font-bold mb-4">{product.name}</h1>
+          <p className="text-xl font-semibold mb-4">
+            Kz{" "}
+            {product.price.toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </p>
+          <div className="flex gap-2 justify-between items-center mb-4">
+            <p className="font-medium">Quantidade</p>
+            <div className="flex items-center gap-6 bg-gray-100 px-4 py-2 rounded shadow-sm">
+              <button
+                onClick={() => handleQuantityChange("decrease")}
+                className="text-xl px-2 hover:text-red-500"
+              >
+                -
+              </button>
+              <span className="text-lg font-semibold">{quantity}</span>
+              <button
+                onClick={() => handleQuantityChange("increase")}
+                className="text-xl px-2 hover:text-green-500"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 mb-6">
+            <button
+              onClick={addToCart}
+              className=" flex items-center bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+            >
+              <CgShoppingCart className="mr-2" /> Adicionar ao carrinho
+            </button>
+            <Link
+              to={`/facturacao?name=${encodeURIComponent(product.name)}`}
+              className="flex items-center bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+            >
+              <FaCreditCard className="mr-2" /> Comprar Agora
+            </Link>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold mb-2">Descrição</h2>
+            <p className="text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
