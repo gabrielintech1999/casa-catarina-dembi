@@ -98,3 +98,7 @@ Higiene Pessoal
 Eletronicos
 Material de Escritório 
 Moda e Estilo
+
+
+# Endireitar imagem de slides 
+# tirar borda de pesquisa 

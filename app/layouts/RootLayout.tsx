@@ -34,7 +34,7 @@ export default function RootLayout({ loaderData }: Route.ComponentProps) {
 
   return (
     <div className="min-h-screen  ">
-      <Header cart={cart} user={user} />
+    <Header cart={cart} user={user} />
       <div
         className={`min-h-screen max-w-[1000px] m-auto relative transition-all duration-300 ${
           showLoader ? "opacity-50 blur-sm" : "opacity-100 blur-0"

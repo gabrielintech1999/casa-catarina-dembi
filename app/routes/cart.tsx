@@ -1,22 +1,20 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router"; 
 import type { Route } from "./+types/cart";
 import { FaCreditCard } from "react-icons/fa";
 import { GoTrash } from "react-icons/go";
 import { useState, useEffect } from "react";
-
-import { IoIosArrowRoundBack } from "react-icons/io"
-
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "carinho de compras" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Carrinho de Compras" },
+    { name: "description", content: "Bem-vindo ao carrinho de compras!" },
   ];
 }
 
 export default function Cart() {
   const navigate = useNavigate();
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -52,81 +50,79 @@ export default function Cart() {
   };
 
   return (
-  <div className="min-h-screen bg-white p-4 max-w-md mx-auto overflow-auto my-5">
-      <header className=" p-2 bg-white shadow-md md:flex-row md:justify-between md:items-center">
-      <button onClick={() => navigate(-1)}>
-      <IoIosArrowRoundBack size={30}  />
-      </button>
-      </header>
-      <div className="p-4 h-screen">
-    
+    <div className="p-4 max-w-4xl mx-auto">
       {cartItems.length === 0 ? (
         <div className="text-center">
-          <h2>Carrinho Vazio</h2>
+          <h2 className="text-xl font-semibold mb-2">Carrinho Vazio</h2>
           <p>
             Adicione produtos ao carrinho clicando no botão{" "}
-            <b>Adicionar ao Carrinho</b> na página de detalhes do produto
+            <b>Adicionar ao Carrinho</b> na página de detalhes do produto.
           </p>
         </div>
       ) : (
-        cartItems.map((item) => (
-          <article key={item.id} className="flex gap-4">
-            <div>
-              <img src={item.image} alt={item.name} />
-            </div>
-            <div>
-              <div>
-                <h3>{item.name}</h3>
-                <b>
+        <>
+          {cartItems.map((item) => (
+            <article
+              key={item.id}
+              className="flex gap-4 items-center mb-4 border-b pb-4"
+            >
+              <div className="w-24 h-24 overflow-hidden">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <b className="text-green-700">
                   {item.price.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}{" "}
                   Kz
                 </b>
+                <div className="flex items-center gap-4 bg-gray-100 p-2 rounded mt-2">
+                  <button onClick={() => removeItem(item.id)} title="Remover">
+                    <GoTrash />
+                  </button>
+                  <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                </div>
               </div>
-              <div className="flex gap-8 bg-gray-100 p-2 rounded">
-                <button onClick={() => removeItem(item.id)}>
-                  <GoTrash />
-                </button>
-                <button onClick={() => updateQuantity(item.id, -1)}>-</button>
-                <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, 1)}>+</button>
-              </div>
-            </div>
-          </article>
-        ))
-      )}
-      <div className="flex justify-between items-center my-4">
-        <p>Total</p>
-        <b>
-          {total.toLocaleString("pt-BR", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}{" "}
-          Kz
-        </b>
-      </div>
-      <div>
-        {cartItems.length > 0 && (
-          <Link
-            to="/facturacao"
-            className="bg-green-600 text-white p-2 rounded flex items-center gap-2"
-          >
-            <FaCreditCard />
-            Finalizar Compra
-          </Link>
-        )}
-        <Link
-          to="/"
-          className="bg-gray-200 text-gray-700 p-2 rounded flex items-center gap-2 mt-2"
-        >
-          <FaCreditCard />
-          Continuar Comprando
-        </Link>
+            </article>
+          ))}
 
-      </div>
+          <div className="flex justify-between items-center my-4">
+            <p className="text-lg font-semibold">Total</p>
+            <b className="text-xl text-green-700">
+              {total.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}{" "}
+              Kz
+            </b>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Link
+              to="/facturacao"
+              className="bg-green-600 text-white p-2 rounded flex items-center gap-2 justify-center"
+            >
+              <FaCreditCard />
+              Finalizar Compra
+            </Link>
+            <Link
+              to="/"
+              className="bg-gray-200 text-gray-700 p-2 rounded flex items-center gap-2 justify-center"
+            >
+              <IoIosArrowRoundBack /> 
+              Continuar Comprando
+            </Link>
+          </div>
+        </>
+      )}
     </div>
-  </div>
   );
 }

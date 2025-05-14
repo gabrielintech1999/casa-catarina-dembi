@@ -113,7 +113,7 @@ export default function ProductDetail({ loaderData }: Route.ComponentProps) {
           <img
             src={product.image[0]}
             alt={product.name}
-            className="max-w-full h-auto md:h-[400px] object-cover rounded-2xl shadow-md hover:scale-105 transition-transform"
+               className="max-w-full h-auto md:h-[400px] object-cover rounded-2xl shadow-md hover:scale-105 transition-transform"
           />
         </div>
 

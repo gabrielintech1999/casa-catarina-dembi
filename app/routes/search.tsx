@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { useLoaderData, Await } from "react-router";
+import { useLoaderData, Await, Link } from "react-router";
 import { Suspense, useState, useMemo } from "react";
 import type { Route } from "./+types/search";
 import { db } from "~/utils/firebase";
@@ -132,9 +132,12 @@ export default function Results() {
 }
 
 function ProductCard({ product }: { product: Product }) {
+
+  console.log(product)
   return (
-    <article className="border rounded p-4 hover:shadow-lg transition-shadow">
-      {product.imageUrl && (
+    <article className="rounded p-4 hover:shadow-lg transition-shadow">
+    <Link to={`/items/${product.name}/${product.id}`}>
+        {product.imageUrl && (
         <img
           src={product.imageUrl}
           alt={product.name}
@@ -144,7 +147,7 @@ function ProductCard({ product }: { product: Product }) {
       <h2 className="text-lg font-semibold">{product.name}</h2>
       {product.price !== undefined && (
         <p className="text-gray-700">
-          R${" "}
+          Kz{" "}
           {product.price.toLocaleString("pt-BR", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
@@ -154,6 +157,7 @@ function ProductCard({ product }: { product: Product }) {
       {product.description && (
         <p className="text-gray-600 mt-2 line-clamp-2">{product.description}</p>
       )}
+    </Link>
     </article>
   );
 }
