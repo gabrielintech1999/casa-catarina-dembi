@@ -87,7 +87,7 @@ function Carroussel() {
         .map((_, index) => (
           <SwiperSlide key={index}>
             <img
-              className="w-full h-64 object-cover"
+              className="w-full object-cover h-[200px] sm:h-[300px]"
               src={slideImages[index]}
               alt={`banner-home-${index}`}
             />

@@ -4,8 +4,21 @@ import { createCustomer } from '~/utils/api';
 import { userCookie } from '~/utils/cookie';
 
 import { signupSchema } from '~/utils/validate';
+import type { Route } from './+types/signup';
 
 
+
+export function meta({}: Route.MetaArgs) {
+  
+  return [
+    { title: "Criação de Conta" },
+    {
+      name: "description",
+      content:
+        "Se registre no site para poderes comprar e teres um experiencia personalizada!",
+    },
+  ];
+}
 
 
 export async function action({ request }) {

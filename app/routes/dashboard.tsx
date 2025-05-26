@@ -8,7 +8,7 @@ import { redirect } from "react-router";
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Meu Perfil" },
-    { name: "description", content: "Welcome to React Router!" },
+    { name: "description", content: "Pagina onde podes gerenciares as tuas informações!" },
   ];
 }
 

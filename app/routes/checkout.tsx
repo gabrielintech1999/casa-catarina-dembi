@@ -5,6 +5,7 @@ import {
   redirect,
   useActionData,
   useNavigation,
+  useLocation,
 } from "react-router";
 import { useState } from "react";
 import { requireAuth } from "~/utils/protect";
@@ -23,8 +24,8 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Seja Bem-vindo" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Facturação de compra" },
+    { name: "description", content: "Insere os detalhes de pagamento para finalizares a compra" },
   ];
 }
 
@@ -82,6 +83,19 @@ export const action = async ({ request }) => {
 };
 
 export default function Checkout({ loaderData }: Route.ComponentProps) {
+    const location = useLocation();
+
+  // Cria objeto URLSearchParams para manipular query params
+  const queryParams = new URLSearchParams(location.search);
+
+  // Pega valores
+  const total = queryParams.get('total');       // '200'
+  const quantity = queryParams.get('quantity'); // '1'
+
+  console.log(total);
+  
+
+
   const actionData = useActionData();
 
   console.log(loaderData);
@@ -116,25 +130,8 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
           Revise suas informações e escolha a forma de pagamento.
         </p>
 
-        <div className="mt-6">
-          <h2 className="text-lg font-medium text-gray-800">
-            Resumo do Pedido
-          </h2>
-          <div className="mt-4 bg-gray-50 p-4 rounded-lg shadow-inner">
-            <div className="flex justify-between text-gray-700 mt-2">
-              <span>Quantidade:</span>
-              <span>1</span>
-            </div>
-            <div className="flex justify-between text-gray-700 mt-2">
-              <span>Preço:</span>
-              <span>Kz 5.000</span>
-            </div>
-            <div className="flex justify-between text-gray-800 font-semibold mt-4 border-t pt-2">
-              <span>Total:</span>
-              <span>Kz 5.000</span>
-            </div>
-          </div>
-        </div>
+        <Invoice quantity={quantity} total={total} customerName={loaderData.name} invoiceNumber="12345" />
+
 
         <Form method="post" onSubmit={handleSubmit}>
           <div className="mt-6">
@@ -198,8 +195,8 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
                 />
                 {actionData?.errors?.phone && (
                   <p className="text-red-500 text-sm mt-1">
-                    {actionData.errors.phone}
-                  </p>
+                    {actionData.errors.phone}  
+                  </p> 
                 )}
               </div>
             </div>
@@ -212,7 +209,7 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
             <div className="mt-4">
               <div className="mb-4">
                 <label className="block text-gray-700 font-medium mb-2">
-                  Pagamento à Mão
+                    Pagamento à Mão (Confirme seu nome)
                 </label>
                 <input
                   type="text"
@@ -263,14 +260,41 @@ export default function Checkout({ loaderData }: Route.ComponentProps) {
   );
 }
 
-// export default function Checkout() {
-//   return (
-//     <div>
-//       <h1> Home Page </h1>
-//     </div>
-//   );
-// }
 
-// <div className="bg-red-600 p-4 text-white font-bold">
-// <h1>Hello home</h1>
-// </div>
+
+function Invoice({ quantity, total, customerName, invoiceNumber, date }) {
+  return (
+    <div className="max-w-md mx-auto mt-10 p-6 border rounded-lg shadow-lg bg-white">
+      {/* Cabeçalho */}
+      <header className="mb-6 border-b pb-2">
+        <h1 className="text-2xl font-bold text-gray-900">Factura</h1>
+        <div className="flex justify-between text-sm text-gray-600 mt-1">
+          <span>Cliente: {customerName || '---'}</span>
+          <span>Nº: {invoiceNumber || '0001'}</span>
+          <span>Data: {date || new Date().toLocaleDateString()}</span>
+        </div>
+      </header>
+
+      {/* Conteúdo da fatura */}
+      <section>
+        <h2 className="text-lg font-medium text-gray-800 mb-4">Resumo do Pedido</h2>
+        <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
+          <div className="flex justify-between text-gray-700 mt-2">
+            <span>Quantidade:</span>
+            <span>{quantity}</span>
+          </div>
+          <div className="flex justify-between text-gray-800 font-semibold mt-4 border-t pt-2">
+            <span>Total:</span>
+            <span>Kz {total}</span>
+          </div>
+        </div>
+      </section>
+
+      {/* Rodapé */}
+      <footer className="mt-8 text-center text-gray-600 text-sm">
+        Obrigado pela sua compra!
+      </footer>
+    </div>
+  );
+}
+

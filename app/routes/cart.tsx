@@ -17,6 +17,8 @@ export default function Cart() {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
 
+  console.log(total)
+
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(cart);
@@ -107,7 +109,7 @@ export default function Cart() {
 
           <div className="flex flex-col gap-2">
             <Link
-              to="/facturacao"
+              to={`/facturacao?total=${total}&quantity=${cartItems.length}`}
               className="bg-green-600 text-white p-2 rounded flex items-center gap-2 justify-center"
             >
               <FaCreditCard />

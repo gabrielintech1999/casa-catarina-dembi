@@ -2,6 +2,21 @@ import React from "react";
 import Confetti from "react-confetti";
 import { Link } from "react-router";
 
+
+
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Obrigada pela compra" },
+    {
+      name: "description",
+      content:
+        "Obrigada por confiares em nós!",
+    },
+  ];
+}
+
+
+
 export default function Congratulations() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
