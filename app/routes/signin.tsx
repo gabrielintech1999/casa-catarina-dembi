@@ -1,7 +1,11 @@
-import { Link, useNavigation } from "react-router";
+import { Link, useNavigation, redirect } from "react-router";
 import { FaTimes, FaGift, FaTruck } from "react-icons/fa";
 import type { Route } from "./+types/signin";
-import { useState } from "react";
+import { userSchema } from "~/utils/validate";
+import { loginUser } from "~/utils/api";
+import { userCookie } from "~/utils/cookie";
+import { useState  } from "react";
+
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,6 +16,48 @@ export function meta({}: Route.MetaArgs) {
         "Acesse a tua conta para poderes comprar e gerenciares as tuas informações!",
     },
   ];
+}
+
+
+export function loader({ request }:  Route.ActionArgs) {
+
+
+  const msg =  new URL(request.url).searchParams.get("message")
+
+  console.log(msg);
+  
+  return msg
+}
+
+export async function action({ request }: Route.ActionArgs) {
+
+  
+  const formData = await request.formData();
+  console.log(formData); 
+  const phone = String(formData.get("phone"));
+  const password = String(formData.get("password"));
+
+  const validationResult = userSchema.safeParse({ phone, password });
+  if (!validationResult.success) {
+    const fieldErrors = validationResult.error.errors.reduce(
+      (acc, curr) => ({ ...acc, [curr.path[0]]: curr.message }),
+      {} as Record<string, string>
+    );
+    return { fieldErrors };
+  }
+
+  try {
+    const customer = await loginUser({ phone, password });
+    console.log(customer); 
+
+    return redirect("/", { 
+      headers: {
+        "Set-Cookie": await userCookie.serialize(customer),
+      },
+    });
+  } catch (err) {
+    return { error: err.message };
+  }
 }
 
 export default function SignIn({
