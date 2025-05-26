@@ -6,11 +6,15 @@ import { userCookie } from "~/utils/cookie";
 import { requireAuth } from "~/utils/protect";
 import type { Route } from "./+types/dashboard";
 import { redirect } from "react-router";
+import { gerarFaturaPDF } from "~/utils/api";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Meu Perfil" },
-    { name: "description", content: "Pagina onde podes gerenciares as tuas informações!" },
+    {
+      name: "description",
+      content: "Pagina onde podes gerenciares as tuas informações!",
+    },
   ];
 }
 
@@ -35,27 +39,6 @@ export async function action() {
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const user = loaderData.user;
-
-  // Função para gerar a fatura em PDF
-  const gerarFaturaPDF = () => {
-    const doc = new jsPDF();
-
-    doc.setFontSize(16);
-    doc.text("Casa Catarina Dembi", 20, 20);
-    doc.setFontSize(12);
-    doc.text(`Nome: ${user.name}`, 20, 40);
-    doc.text(`Telefone: +244 ${user.phone}`, 20, 50);
-    doc.text(`Endereço: ${user.address || "Não fornecido"}`, 20, 60);
-    doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 70);
-
-    doc.text("Detalhes da Fatura:", 20, 90);
-    doc.text("- Produto: Serviço/Produto Exemplo", 20, 100);
-    doc.text("- Valor: Kz 10.000", 20, 110);
-
-    doc.text("Obrigado por comprar connosco!", 20, 140);
-
-    doc.save("fatura.pdf");
-  };
 
   return (
     <div className="min-h-screen bg-white p-4 max-w-md mx-auto">
@@ -92,14 +75,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
       {/* Botão para baixar fatura */}
       <button
-        onClick={gerarFaturaPDF}
+        onClick={() =>   gerarFaturaPDF(user)}
         type="button"
-        className="bg-green-700 text-white rounded-xl px-4 py-2 w-full mt-4"
+        className="bg-green-700 cursor-pointer text-white rounded-xl px-4 py-2 w-full mt-4"
       >
         Baixar Fatura em PDF
       </button>
 
-      {/* Logout */} 
+      {/* Logout */}
       <form method="post">
         <button className="text-red-600 text-center mt-12 w-full pointer">
           Terminar Sessão
