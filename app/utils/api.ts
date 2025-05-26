@@ -69,8 +69,11 @@ export async function createCustomer(
   return { id: customerRef.id, ...customerData }; // Return the created customer
 }
 
-export const gerarFaturaPDF = ({ name, phone, address }) => {
+export const gerarFaturaPDF = (user, order) => {
   const doc = new jsPDF();
+
+  console.log(order);
+  
 
   // Logo em base64 (exemplo com ícone do React)
   const logoBase64 =
@@ -87,9 +90,9 @@ export const gerarFaturaPDF = ({ name, phone, address }) => {
   // Dados do cliente
   doc.setFontSize(12);
   doc.setTextColor(0);
-  doc.text(`Nome: ${name}`, 15, 50);
-  doc.text(`Telefone: +244 ${phone}`, 15, 58);
-  doc.text(`Endereço: ${address}`, 15, 66);
+  doc.text(`Nome: ${user.name}`, 15, 50);
+  doc.text(`Telefone: +244 ${user.phone}`, 15, 58);
+  doc.text(`Endereço: ${user.address}`, 15, 66);
   doc.text(`Data: ${new Date().toLocaleDateString()}`, 15, 74);
 
   // Título da fatura
@@ -107,20 +110,18 @@ export const gerarFaturaPDF = ({ name, phone, address }) => {
   doc.text("Qtd", 100, startY + 7);
   doc.text("Preço (Kz)", 140, startY + 7);
 
-  // Conteúdo (exemplo)
-  const produtos = [
-    { nome: "Pão caseiro", qtd: 2, preco: 2000 },
-    { nome: "Bolo de aniversário", qtd: 1, preco: 6000 },
-  ];
 
+  
   let y = startY + 15;
   let total = 0;
 
-  produtos.forEach((p) => {
-    doc.text(p.nome, 20, y);
-    doc.text(String(p.qtd), 100, y);
-    doc.text(`Kz ${p.preco}`, 140, y);
-    total += p.qtd * p.preco;
+
+
+  order.forEach((p) => {
+    doc.text(p.name, 20, y);
+    doc.text(String(p.quantity), 100, y);
+    doc.text(`Kz ${p.price}`, 140, y);
+    total += p.quantity * p.price;
     y += 10;
   });
 

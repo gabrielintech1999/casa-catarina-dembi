@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import jsPDF from "jspdf";
 import AccountSection from "~/components/AccountSection";
@@ -40,6 +40,17 @@ export async function action() {
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const user = loaderData.user;
 
+  const [order, setOrder] = useState<any[]>([]);
+
+  console.log(order);
+  
+
+  
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    setOrder(cart);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white p-4 max-w-md mx-auto">
       {/* Header */}
@@ -67,7 +78,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       {/* Seções */}
       <AccountSection title="Endereços" desc={user.address} />
       <AccountSection title="Cartões" desc={"Nenhum"} />
-      <AccountSection title="Encomendas" count={0} desc="Nenhum" />
+      <AccountSection title="Encomendas" count={order.length} desc="Nenhum" />
       <AccountSection
         title="Ajuda"
         desc={"Entra em contacto connosco pra que possamos te ajudar"}
@@ -75,7 +86,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
       {/* Botão para baixar fatura */}
       <button
-        onClick={() =>   gerarFaturaPDF(user)}
+        onClick={() =>   gerarFaturaPDF(user, order)}
         type="button"
         className="bg-green-700 cursor-pointer text-white rounded-xl px-4 py-2 w-full mt-4"
       >
