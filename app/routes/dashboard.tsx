@@ -1,8 +1,10 @@
+import { useEffect } from "react";
+import { Link } from "react-router";
+import jsPDF from "jspdf";
 import AccountSection from "~/components/AccountSection";
 import { userCookie } from "~/utils/cookie";
 import { requireAuth } from "~/utils/protect";
 import type { Route } from "./+types/dashboard";
-import { Link } from "react-router";
 import { redirect } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
@@ -22,8 +24,6 @@ export async function loader({ request }: Route.LoaderArgs) {
 }
 
 export async function action() {
-  // console.log("log out")
-
   return redirect("/", {
     headers: {
       "Set-Cookie": await userCookie.serialize("", {
@@ -35,6 +35,27 @@ export async function action() {
 
 export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const user = loaderData.user;
+
+  // Função para gerar a fatura em PDF
+  const gerarFaturaPDF = () => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Casa Catarina Dembi", 20, 20);
+    doc.setFontSize(12);
+    doc.text(`Nome: ${user.name}`, 20, 40);
+    doc.text(`Telefone: +244 ${user.phone}`, 20, 50);
+    doc.text(`Endereço: ${user.address || "Não fornecido"}`, 20, 60);
+    doc.text(`Data: ${new Date().toLocaleDateString()}`, 20, 70);
+
+    doc.text("Detalhes da Fatura:", 20, 90);
+    doc.text("- Produto: Serviço/Produto Exemplo", 20, 100);
+    doc.text("- Valor: Kz 10.000", 20, 110);
+
+    doc.text("Obrigado por comprar connosco!", 20, 140);
+
+    doc.save("fatura.pdf");
+  };
 
   return (
     <div className="min-h-screen bg-white p-4 max-w-md mx-auto">
@@ -64,8 +85,21 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       <AccountSection title="Endereços" desc={user.address} />
       <AccountSection title="Cartões" desc={"Nenhum"} />
       <AccountSection title="Encomendas" count={0} desc="Nenhum" />
-      <AccountSection title="Ajuda" desc={"Entra em contacto connosco pra que possamos te ajudar"} />
+      <AccountSection
+        title="Ajuda"
+        desc={"Entra em contacto connosco pra que possamos te ajudar"}
+      />
 
+      {/* Botão para baixar fatura */}
+      <button
+        onClick={gerarFaturaPDF}
+        type="button"
+        className="bg-green-700 text-white rounded-xl px-4 py-2 w-full mt-4"
+      >
+        Baixar Fatura em PDF
+      </button>
+
+      {/* Logout */} 
       <form method="post">
         <button className="text-red-600 text-center mt-12 w-full pointer">
           Terminar Sessão
@@ -74,31 +108,3 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
     </div>
   );
 }
-
-// import { userCookie } from "~/utils/cookie";
-// import { requireAuth } from "~/utils/protect";
-// import type { Route } from "./+types/dashboard";
-
-// export default function Dashboard({ loaderData }: Route.ComponentProps) {
-
-//   const user = loaderData.user;
-
-//   return (
-//     <div className="p-4">
-//        <h1>Conta</h1>
-//       <div className="mx-auto flex w-full  overflow-hidden border-gray-200  border rounded-8 mb-20 max-w-[432px] p-4 gap-4  rounded-12">
-//           <div>
-//             user
-//           </div>
-//           <div>
-//             <div>{user.name}</div>
-//             <div>{user.phone}</div>
-//           </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// <div className="bg-red-600 p-4 text-white font-bold">
-// <h1>Hello home</h1>
-// </div>
