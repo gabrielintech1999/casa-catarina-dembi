@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Confetti from "react-confetti";
 import { Link } from "react-router";
-
-
+import type { Route } from "./+types/congratulations";
 
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Obrigada pela compra" },
     {
       name: "description",
-      content:
-        "Obrigada por confiares em nós!",
+      content: "Obrigada por confiares em nós!",
     },
   ];
 }
 
-
-
 export default function Congratulations() {
+  useEffect(() => {
+    localStorage.setItem("purchaseConfirmed", "true");
+  }, []);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white">
       <h1 className="text-4xl font-bold text-gray-800 mb-4 text-center">

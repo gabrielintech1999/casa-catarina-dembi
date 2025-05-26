@@ -41,14 +41,14 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
   const user = loaderData.user;
 
   const [order, setOrder] = useState<any[]>([]);
+  const [canDownloadInvoice, setCanDownloadInvoice] = useState(false);
 
-  console.log(order);
-  
-
-  
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const confirmed = localStorage.getItem("purchaseConfirmed") === "true";
+
     setOrder(cart);
+    setCanDownloadInvoice(confirmed);
   }, []);
 
   return (
@@ -85,13 +85,21 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
       />
 
       {/* Botão para baixar fatura */}
-      <button
-        onClick={() =>   gerarFaturaPDF(user, order)}
-        type="button"
-        className="bg-green-700 cursor-pointer text-white rounded-xl px-4 py-2 w-full mt-4"
-      >
-        Baixar Fatura em PDF
-      </button>
+      {canDownloadInvoice && (
+        <button
+          onClick={() => gerarFaturaPDF(user, order)}
+          type="button"
+          className="bg-green-700 cursor-pointer text-white rounded-xl px-4 py-2 w-full mt-4"
+        >
+          Baixar Fatura em PDF
+        </button>
+      )}
+
+      {!canDownloadInvoice && (
+        <p className="text-sm text-gray-500 text-center mt-4">
+          Confirme a sua compra para baixar a fatura.
+        </p>
+      )}
 
       {/* Logout */}
       <form method="post">
