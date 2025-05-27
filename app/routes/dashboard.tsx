@@ -77,11 +77,11 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
 
       {/* Seções */}
       <AccountSection title="Endereços" desc={user.address} />
-      <AccountSection title="Cartões" desc={"Nenhum"} />
-      <AccountSection title="Encomendas" count={order.length} desc="Nenhum" />
+      <AccountSection title="Cartões" desc={"🚀 Esta funcionalidade estará brevemente disponível nas próximas versões. Fique atento(a), vem aí algo incrível! 🔧✨"} />
+      <AccountSection title="Encomendas" count={order.length} desc="📦✨ Dentro de pouco tempo entraremos em contacto para confirmar todos os detalhes da sua entrega. Fique atento(a), a sua encomenda está quase a chegar! 🚚💨" />
       <AccountSection
         title="Ajuda"
-        desc={"Entra em contacto connosco pra que possamos te ajudar"}
+        desc={"Entra em contacto connosco pra que possamos te ajudar 942728102"}
       />
 
       {/* Botão para baixar fatura */}

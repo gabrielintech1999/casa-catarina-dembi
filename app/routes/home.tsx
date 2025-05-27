@@ -69,32 +69,32 @@ export async function loader({ request }: Route.LoaderArgs) {
 
 function Carroussel() {
   return (
-    <div className="h-[300px] bg-white">
-         <Swiper
-      loop={true}
-      spaceBetween={0}
-      navigation={true}
-      slidesPerView={1}
-      modules={[Navigation, Autoplay]}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false, // Continua mesmo após interação do usuário
-      }}
-      className="h-[100%]"
-    >
-      {Array(8)
-        .fill(0)
-        .map((_, index) => (
-          <SwiperSlide key={index}>
-            <img
-              className="w-full object-cover h-[200px] sm:h-[300px]"
-              src={slideImages[index]}
-              alt={`banner-home-${index}`}
-            />
-          </SwiperSlide>
-        ))}
-    </Swiper>
-    </div>
+   <div className="min-h-[200px] sm:min-h-[300px] bg-white">
+  <Swiper
+    loop
+    spaceBetween={0}
+    navigation
+    slidesPerView={1}
+    modules={[Navigation, Autoplay]}
+    autoplay={{
+      delay: 2500,
+      disableOnInteraction: false,
+    }}
+    className="h-full"
+  >
+    {slideImages.map((src, index) => (
+      <SwiperSlide key={index}>
+        <img
+          className="w-full object-cover h-[200px] sm:h-[300px]"
+          src={src}
+          alt={`Slide promocional número ${index + 1}`}
+          loading="lazy"
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+
    
   );
 }
